@@ -62,17 +62,16 @@ public class Pawn extends Piece{
                     !(BoardUtils.FIRST_COLUMN[this.piecePosition] && isWhite() ||
                             (BoardUtils.EIGHT_COLUMN[this.piecePosition] && !isWhite()))){
 
-                if(board.getTile(candidateDestinationCoordinate).isTileOccupied()){
+                if(board.getTile(candidateDestinationCoordinate).isTileOccupied()) {
                     Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
                     boolean color = pieceOnCandidate.isWhite();
 
-                    if (color != isWhite()){
+                    if (color != isWhite()) {
                         legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
                     }
+                }
             }
-
         }
-
         return legalMoves;
     }
 }
