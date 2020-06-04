@@ -25,8 +25,8 @@ public class King extends Piece{
 
            if(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
 
-               if(isFirstColumnException(candidateDestinationCoordinate, currentCandidateOffset) ||
-               isEightColumnException(candidateDestinationCoordinate, currentCandidateOffset)){
+               if(isFirstColumnException(this.piecePosition, currentCandidateOffset) ||
+               isEightColumnException(this.piecePosition, currentCandidateOffset)){
                    continue;
                }
 
