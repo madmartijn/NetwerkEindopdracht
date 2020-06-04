@@ -1,5 +1,7 @@
 package Board;
 
+import Board.Tile.Tile;
+
 public class Board {
 
 

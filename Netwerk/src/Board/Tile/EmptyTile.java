@@ -1,8 +1,10 @@
-package Board;
+package Board.Tile;
 
+import Board.Board;
+import Board.Tile.Tile;
 import Pieces.Piece;
 
-public class EmptyTile extends Tile{
+public class EmptyTile extends Tile {
 
     public EmptyTile(int tileCoordinate) {
         super(tileCoordinate);

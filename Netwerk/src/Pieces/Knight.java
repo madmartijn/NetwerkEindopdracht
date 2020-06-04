@@ -1,6 +1,8 @@
 package Pieces;
 
 import Board.*;
+import Board.Move.Move;
+import Board.Tile.Tile;
 
 import java.util.ArrayList;
 import java.util.List;

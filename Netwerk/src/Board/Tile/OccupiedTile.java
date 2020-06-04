@@ -1,8 +1,10 @@
-package Board;
+package Board.Tile;
 
+import Board.Board;
+import Board.Tile.Tile;
 import Pieces.Piece;
 
-public class OccupiedTile extends Tile{
+public class OccupiedTile extends Tile {
 
     private final Piece piece;
 

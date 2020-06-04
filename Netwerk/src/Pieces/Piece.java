@@ -1,7 +1,7 @@
 package Pieces;
 
 import Board.Board;
-import Board.Move;
+import Board.Move.Move;
 
 import java.util.List;
 
