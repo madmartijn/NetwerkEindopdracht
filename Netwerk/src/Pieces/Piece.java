@@ -9,15 +9,19 @@ public abstract class Piece {
 
     protected final int piecePosition;
     private boolean isWhite;
+    private boolean isFirstMove;
 
     public Piece(int piecePosition, boolean isWhite) {
         this.piecePosition = piecePosition;
         this.isWhite = isWhite;
+        this.isFirstMove = false;
     }
 
     public boolean isWhite() {
         return this.isWhite;
     }
+
+    public boolean isFirstMove() {return this.isFirstMove;}
 
     public abstract List<Move> PossibleMoves(Board board);
 
