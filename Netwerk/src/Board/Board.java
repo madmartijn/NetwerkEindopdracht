@@ -3,12 +3,19 @@ package Board;
 import Board.Tile.Tile;
 import Pieces.Piece;
 
+import java.util.List;
 import java.util.Map;
 
 public class Board {
 
-    private Board(Builder builder){
+    private List<Tile> gameBoard;
 
+    private Board(Builder builder){
+        this.gameBoard = createGameBoard(builder);
+    }
+
+    private List<Tile> createGameBoard(Builder builder) {
+        Tile[] tiles = new Tile[64];
     }
 
     public Tile getTile(int tileCoordinate) {
@@ -18,7 +25,7 @@ public class Board {
     public static class Builder {
 
         private Map<Integer, Piece> boardConfig;
-        private Piece piece;
+        private boolean color;
 
         public Builder() {
 
@@ -30,7 +37,8 @@ public class Board {
         }
 
         public Builder setMoveMaker (Piece piece) {
-            boolean this.piece.isWhite() =  piece.isWhite();
+            this.color = piece.isWhite();
+            return this;
         }
 
         public Board builder() {
