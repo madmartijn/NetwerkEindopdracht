@@ -12,7 +12,7 @@ public class Rook extends Piece{
     private static int[] CANDIDATE_MOVE_VECTOR = {-8, -1, 1, 8};
 
 
-    public Rook(int piecePosition, boolean isWhite) {
+    public Rook(Tile2 piecePosition, boolean isWhite) {
         super(piecePosition, isWhite);
     }
 
@@ -21,36 +21,36 @@ public class Rook extends Piece{
 
         List<Move> legalMoves = new ArrayList<>();
 
-        for(int candidateCoordinateOffset : CANDIDATE_MOVE_VECTOR){
-
-            int candidateDestinationCoordinate = this.piecePosition;
-
-            while(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
-
-                if(isFirstColumnExclusion(candidateDestinationCoordinate, candidateCoordinateOffset) ||
-                        isEightColumnExclusion(candidateDestinationCoordinate, candidateCoordinateOffset)){
-                    break;
-                }
-
-                candidateDestinationCoordinate += candidateCoordinateOffset;
-
-                if(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
-                    final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
-
-                    if(!candidateDestinationTile.isTileOccupied()){
-                        legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
-                    }else {
-                        final Piece pieceAtDestination = candidateDestinationTile.getPiece();
-                        final boolean color = pieceAtDestination.isWhite();
-
-                        if(color != isWhite()){
-                            legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
-                        }
-                        break;
-                    }
-                }
-            }
-        }
+//        for(int candidateCoordinateOffset : CANDIDATE_MOVE_VECTOR){
+//
+//            int candidateDestinationCoordinate = this.piecePosition;
+//
+//            while(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
+//
+//                if(isFirstColumnExclusion(candidateDestinationCoordinate, candidateCoordinateOffset) ||
+//                        isEightColumnExclusion(candidateDestinationCoordinate, candidateCoordinateOffset)){
+//                    break;
+//                }
+//
+//                candidateDestinationCoordinate += candidateCoordinateOffset;
+//
+//                if(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
+//                    final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
+//
+//                    if(!candidateDestinationTile.isTileOccupied()){
+//                        legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
+//                    }else {
+//                        final Piece pieceAtDestination = candidateDestinationTile.getPiece();
+//                        final boolean color = pieceAtDestination.isWhite();
+//
+//                        if(color != isWhite()){
+//                            legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
+//                        }
+//                        break;
+//                    }
+//                }
+//            }
+//        }
         return legalMoves;
     }
 

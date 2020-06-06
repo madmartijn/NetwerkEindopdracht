@@ -11,7 +11,7 @@ public class King extends Piece{
 
     private static int[] CANDIDATE_MOVE_COORDINATE = {-9, -8, -7, -1, 1, 7, 8, 9};
 
-    public King(int piecePosition, boolean isWhite) {
+    public King(Tile2 piecePosition, boolean isWhite) {
         super(piecePosition, isWhite);
     }
 
@@ -20,30 +20,30 @@ public class King extends Piece{
 
         List<Move> legalMoves = new ArrayList<>();
 
-        for(int currentCandidateOffset : CANDIDATE_MOVE_COORDINATE){
-           int candidateDestinationCoordinate = this.piecePosition + currentCandidateOffset;
-
-           if(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
-
-               if(isFirstColumnException(this.piecePosition, currentCandidateOffset) ||
-               isEightColumnException(this.piecePosition, currentCandidateOffset)){
-                   continue;
-               }
-
-               Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
-
-               if(!candidateDestinationTile.isTileOccupied()){
-                   legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
-               }else {
-                   final Piece pieceAtDestination = candidateDestinationTile.getPiece();
-                   final boolean color = pieceAtDestination.isWhite();
-
-                   if(color != isWhite()){
-                       legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
-                   }
-               }
-           }
-        }
+//        for(int currentCandidateOffset : CANDIDATE_MOVE_COORDINATE){
+//           int candidateDestinationCoordinate = this.piecePosition + currentCandidateOffset;
+//
+//           if(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
+//
+//               if(isFirstColumnException(this.piecePosition, currentCandidateOffset) ||
+//               isEightColumnException(this.piecePosition, currentCandidateOffset)){
+//                   continue;
+//               }
+//
+//               Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
+//
+//               if(!candidateDestinationTile.isTileOccupied()){
+//                   legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
+//               }else {
+//                   final Piece pieceAtDestination = candidateDestinationTile.getPiece();
+//                   final boolean color = pieceAtDestination.isWhite();
+//
+//                   if(color != isWhite()){
+//                       legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
+//                   }
+//               }
+//           }
+//        }
         return legalMoves;
     }
 
