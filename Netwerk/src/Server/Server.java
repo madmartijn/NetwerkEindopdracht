@@ -1,5 +1,8 @@
 package Server;
 
+import Window.Window;
+
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -19,41 +22,33 @@ public class Server {
         this.threads = new ArrayList<>();
     }
 
-    public boolean start () {
+    public void start () {
+        new Thread( () -> {
         try {
-            this.server = new ServerSocket(port);
+            // Create a server socket
+            ServerSocket serverSocket = new ServerSocket(8000);
 
-            this.serverThread = new Thread( () -> {
-                while (true) {
-                    System.out.println("Waiting for clients to connect");
-                    try{
-                        Socket socket = this.server.accept();
-                        System.out.println("Client connected form " + socket.getInetAddress().getHostAddress() + ".");
+            while (true) {
 
-                        Client client = new Client(socket, this);
-                        Thread threadClient = new Thread(client);
-                        threadClient.start();
-                        this.clients.add(client);
-                        this.threads.add(threadClient);
+                Socket player1 = serverSocket.accept();
 
-                        System.out.println("Total clients connected: " + this.clients.size());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e){
-                        e.printStackTrace();
-                    }
-                }
-            });
+                // Notify that the player is Player 1
+                new DataOutputStream(
+                        player1.getOutputStream()).writeUTF("Player 1 connected");
 
-            this.serverThread.start();
-            System.out.println("Server is started and listening on port " + this.port);
-        } catch (IOException e) {
-            System.out.println("Could not connect: " + e.getMessage());
-            return false;
+                // Connect to player 2
+                Socket player2 = serverSocket.accept();
+
+                // Notify that the player is Player 2
+                new DataOutputStream(
+                        player2.getOutputStream()).writeUTF("Player 2 connected");
+
+                new Thread(new Window(player1, player2)).start();
+            }
         }
-        return true;
+        catch(IOException ex) {
+            ex.printStackTrace();
+        }
+    }).start();
     }
 }
