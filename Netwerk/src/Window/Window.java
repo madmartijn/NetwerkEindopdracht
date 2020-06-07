@@ -1,13 +1,10 @@
 package Window;
 
 import Board.Board;
-import Board.Tile.Tile;
 import Board.Tile.Tile2;
 import Pieces.*;
-import Server.Server;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,12 +13,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
-import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.io.*;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 

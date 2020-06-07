@@ -1,17 +1,9 @@
 package Board;
 
-import Board.Tile.Tile;
 import Board.Tile.Tile2;
-import Pieces.Piece;
-import com.sun.javafx.geom.Shape;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 public class Board {
 

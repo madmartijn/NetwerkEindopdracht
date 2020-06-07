@@ -1,10 +1,6 @@
 package Pieces;
 
 import Board.*;
-import Board.Move.AttackMove;
-import Board.Move.MajorMove;
-import Board.Move.Move;
-import Board.Tile.Tile;
 import Board.Tile.Tile2;
 
 import javax.imageio.ImageIO;
