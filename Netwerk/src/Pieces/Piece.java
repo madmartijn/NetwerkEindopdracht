@@ -17,10 +17,12 @@ public abstract class Piece {
     private boolean isWhite;
     private boolean isFirstMove;
     private BufferedImage image;
+    private boolean isKing;
 
     public Piece( boolean isWhite) {
         this.isWhite = isWhite;
         this.isFirstMove = false;
+        this.isKing = false;
     }
 
     public Tile2 getPiecePosition() {
@@ -37,7 +39,7 @@ public abstract class Piece {
 
     public boolean isFirstMove() {return this.isFirstMove;}
 
-    public abstract List<Move> PossibleMoves(Board board);
+    public abstract List<Tile2> PossibleMoves(Tile2[][] gameBoard, Tile2 currentTile);
 
     public BufferedImage getImage() {
         return image;
@@ -45,5 +47,9 @@ public abstract class Piece {
 
     public void setImage(BufferedImage image) {
         this.image = image;
+    }
+
+    public boolean isKing() {
+        return isKing;
     }
 }

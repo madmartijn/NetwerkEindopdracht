@@ -24,7 +24,7 @@ public class Board {
     }
 
     private Tile2[][] createGameBoard() {
-        Tile2[][] tiles = new Tile2[8][8];
+        Tile2[][] tiles = new Tile2[8][16];
 
         int i1 = 0;     //Tracks the position of the first array in the for loop
         int i2 = 0;     //Tracks the position of the second array in the for loop
@@ -32,7 +32,7 @@ public class Board {
 //            System.out.println(i1);
 //            System.out.println(i2);
 
-            tiles[i1][i2] = new Tile2(false, new Rectangle2D(i1*64 + (int)this.canvas.getWidth()/4, +i2*64 + (int)this.canvas.getHeight()/4, 64,64));
+            tiles[i1][i2] = new Tile2(false, new Rectangle2D(i1*60 + (int)this.canvas.getWidth()/4, +i2*60 + 26, 60,60));
 
             if (i2 == tiles[1].length-1){
                 i1++;

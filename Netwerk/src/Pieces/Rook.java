@@ -2,6 +2,7 @@ package Pieces;
 
 import Board.*;
 import Board.Move.*;
+import Board.Tile.Tile2;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -23,48 +24,23 @@ public class Rook extends Piece{
                 e.printStackTrace();
             }
         }else {
-
+            try {
+                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/rookWhite.png")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }
 
     @Override
-    public List<Move> PossibleMoves(Board board) {
+    public List<Tile2> PossibleMoves(Tile2[][] gameBoard, Tile2 currentTile) {
+        List<Tile2> legalMoves = new ArrayList<>();
 
-        List<Move> legalMoves = new ArrayList<>();
 
-//        for(int candidateCoordinateOffset : CANDIDATE_MOVE_VECTOR){
-//
-//            int candidateDestinationCoordinate = this.piecePosition;
-//
-//            while(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
-//
-//                if(isFirstColumnExclusion(candidateDestinationCoordinate, candidateCoordinateOffset) ||
-//                        isEightColumnExclusion(candidateDestinationCoordinate, candidateCoordinateOffset)){
-//                    break;
-//                }
-//
-//                candidateDestinationCoordinate += candidateCoordinateOffset;
-//
-//                if(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
-//                    final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
-//
-//                    if(!candidateDestinationTile.isTileOccupied()){
-//                        legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
-//                    }else {
-//                        final Piece pieceAtDestination = candidateDestinationTile.getPiece();
-//                        final boolean color = pieceAtDestination.isWhite();
-//
-//                        if(color != isWhite()){
-//                            legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
-//                        }
-//                        break;
-//                    }
-//                }
-//            }
-//        }
         return legalMoves;
     }
+
 
     private static boolean isFirstColumnExclusion(int currentPosition, int candidateOffset){
         return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -1);
