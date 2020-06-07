@@ -4,6 +4,7 @@ import Board.Board;
 import Board.Tile.Tile;
 import Board.Tile.Tile2;
 import Pieces.*;
+import Server.Server;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
@@ -19,6 +20,7 @@ import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -273,6 +275,12 @@ public class Window extends Application {
 
 
     public static void main(String[] args) {
+        int port = 10000;
+        Server server = new Server(port);
+        server.start();
+
         launch(Window.class);
+
+
     }
 }

@@ -26,7 +26,7 @@ public class Client implements Runnable{
             this.in = new DataInputStream(this.socket.getInputStream());
             this.out = new DataOutputStream(this.socket.getOutputStream());
 
-            out.writeUTF("Connect");
+            out.writeUTF("Connecting to server");
 
             this.name = in.readUTF();
             System.out.println(this.name + " joined the game");
