@@ -86,6 +86,10 @@ public class Board {
         return gameBoard;
     }
 
+    public void setGameBoard(Tile2[][] gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+
     public static class Builder {
 
         private Map<Integer, Piece> boardConfig;

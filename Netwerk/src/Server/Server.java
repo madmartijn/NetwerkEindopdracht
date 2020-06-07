@@ -1,6 +1,8 @@
 package Server;
 
-import java.io.IOException;
+import Board.Tile.Tile2;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -9,51 +11,99 @@ public class Server {
 
     private int port;
     private ServerSocket server;
+    String host;
     private Thread serverThread;
     private ArrayList<Client> clients;
     private ArrayList<Thread> threads;
+    boolean running;
 
-    public Server(int port) {
+    public Server(String host, int port) {
+        this.host = host;
         this.port = port;
         this.clients = new ArrayList<>();
         this.threads = new ArrayList<>();
+
+        this.running = false;
+        this.server = null;
+
     }
 
-    public boolean start () {
-        try {
-            this.server = new ServerSocket(port);
-
-            this.serverThread = new Thread( () -> {
-                while (true) {
-                    System.out.println("Waiting for clients to connect");
-                    try{
-                        Socket socket = this.server.accept();
-                        System.out.println("Client connected form " + socket.getInetAddress().getHostAddress() + ".");
-
-                        Client client = new Client(socket, this);
-                        Thread threadClient = new Thread(client);
-                        threadClient.start();
-                        this.clients.add(client);
-                        this.threads.add(threadClient);
-
-                        System.out.println("Total clients connected: " + this.clients.size());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e){
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-            this.serverThread.start();
-            System.out.println("Server is started and listening on port " + this.port);
-        } catch (IOException e) {
-            System.out.println("Could not connect: " + e.getMessage());
-            return false;
+    public void start () throws IOException {
+        if (this.server !=  null){
+            System.out.println("Server already running");
+            return;
         }
-        return true;
+
+
+        try {
+            this.server = new ServerSocket(this.port);
+            this.running = true;
+        } catch (IOException e) {
+            throw e;
+        }
+
+
+        while (this.running){
+            System.out.println("Awaiting connection");
+            Socket client = this.server.accept();
+            new Thread( () -> {
+                handleClientConnection(client);
+                System.out.println("Client connected");
+            }).start();
+        }
+
+
+        System.out.println("Server is started and listening on port " + this.port);
+
+
+//        return true;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    private void handleClientConnection(Socket client){
+
+        try {
+            DataInputStream in = new DataInputStream(client.getInputStream());
+            DataOutputStream out = new DataOutputStream(client.getOutputStream());
+
+            boolean connected = true;
+
+            out.writeUTF("It me, server");
+            while (connected){
+                String message =  in.readUTF();
+                Tile2[][] gameBoard;
+                out.writeUTF(message);
+
+            }
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handeClientConnectionObject(Socket client){
+        System.out.println("OBJECT");
+        try {
+            ObjectInputStream in = new ObjectInputStream(client.getInputStream());
+            ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
+
+            boolean connected = true;
+
+            out.writeObject(new String("Connected"));
+
+            while (connected){
+                Tile2[][] gameBoard = (Tile2[][]) in.readObject();
+                out.writeObject(gameBoard);
+
+            }
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

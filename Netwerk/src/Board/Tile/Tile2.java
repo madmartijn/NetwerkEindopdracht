@@ -5,7 +5,9 @@ import com.sun.javafx.geom.Point2D;
 import com.sun.javafx.geom.Rectangle;
 import javafx.geometry.Rectangle2D;
 
-public class Tile2 {
+import java.io.Serializable;
+
+public class Tile2 implements Serializable {
     private boolean occupied;
     private Rectangle2D rectangle2D;
     private Piece piece;
