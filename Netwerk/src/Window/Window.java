@@ -20,9 +20,7 @@ import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +40,7 @@ public class Window extends Application {
     private boolean gameInProgress;
     private List<Tile2> allowedMoves = new ArrayList<>();
 
-    private String hostName;
-    private int port;
+    private int status;
 
     @Override
     public void start(Stage stage) throws Exception{
@@ -70,7 +67,8 @@ public class Window extends Application {
             }
         }.start();
 
-        this.canvas.setOnMouseClicked(event -> onMouseClick(event));
+        this.canvas.setOnMouseClicked(event -> { onMouseClick(event);
+        });
 
 
 
@@ -215,7 +213,7 @@ public class Window extends Application {
         gameBoard[0][11].setPiece(new Rook(true));
     }
 
-    private void onMouseClick(MouseEvent event){
+    private void onMouseClick(MouseEvent event) {
         System.out.println("MOUSE EVENT");
         System.out.println(gameInProgress);
 
@@ -229,6 +227,7 @@ public class Window extends Application {
                                 this.holdingPiece = true;
                                 this.grabbedPiece = tile;
                                 this.allowedMoves = this.grabbedPiece.getPiece().PossibleMoves(this.gameBoard, tile);
+                                this.status = 1;
                             }
                         }
                     }
@@ -243,6 +242,7 @@ public class Window extends Application {
                                 tile.setOccupied(true);
                                 this.grabbedPiece.removePiece();
                                 this.holdingPiece = false;
+                                this.status = 2;
                             }else if (tile.getRectangle2D().contains(event.getX(), event.getY()) && tile.isOccupied()  && tile.getPiece().isWhite() != grabbedPiece.getPiece().isWhite()){     //Target tile is occupied, remove the existing piece and place selected piece.        //TODO add  && allowedMoves.contains(tile)
                                 System.out.println("MURDER");
 
@@ -255,13 +255,16 @@ public class Window extends Application {
                                 tile.setPiece(this.grabbedPiece.getPiece());
                                 this.grabbedPiece.removePiece();
                                 this.holdingPiece = false;
+                                this.status = 3;
                             }else {
                                 this.holdingPiece = false;
+                                this.status = 4;
                             }
                         }
                     }
                 }
             }
+            System.out.println(this.status);
         }else {
             if (new Rectangle2D(5,5,85,25).contains(event.getX(),event.getY())){
                 userIsWhite = true;
@@ -275,13 +278,15 @@ public class Window extends Application {
 
     }
 
-
     public static void main(String[] args) {
+
+
 
         launch(Window.class);
 
     }
 
-
-
+    public int getStatus() {
+        return this.status;
+    }
 }
