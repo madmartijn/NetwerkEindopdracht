@@ -227,6 +227,11 @@ public class Window extends Application {
                                 this.holdingPiece = false;
                             }else if (tile.getRectangle2D().contains(event.getX(), event.getY()) && tile.isOccupied()  && tile.getPiece().isWhite() != grabbedPiece.getPiece().isWhite()){     //Target tile is occupied, remove the existing piece and place selected piece.
                                 System.out.println("MURDER");
+
+                                if (tile.getPiece().isKing()){
+                                    gameInProgress = false;
+                                }
+
                                 tile.removePiece();
                                 tile.setOccupied(true);
                                 tile.setPiece(this.grabbedPiece.getPiece());

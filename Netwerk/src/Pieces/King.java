@@ -12,9 +12,11 @@ import java.util.List;
 public class King extends Piece{
 
     private static int[] CANDIDATE_MOVE_COORDINATE = {-9, -8, -7, -1, 1, 7, 8, 9};
+    private boolean isKing;
 
     public King(boolean isWhite) {
         super(isWhite);
+        isKing = true;
 
         if (!isWhite){
             try {
@@ -71,5 +73,10 @@ public class King extends Piece{
     private static boolean isEightColumnException (final int currentPosition, final int candidateOffset){
         return BoardUtils.EIGHT_COLUMN[currentPosition] && (candidateOffset == -7 || candidateOffset == 1
                 || candidateOffset == 9);
+    }
+
+    @Override
+    public boolean isKing() {
+        return isKing;
     }
 }
