@@ -6,7 +6,7 @@ public class Server_ {
 
     public static void main(String[] args) {
 
-        Server server = new Server("localhost", 10023);
+        Server server = new Server("localhost", 10000);
 
         try {
             server.start();

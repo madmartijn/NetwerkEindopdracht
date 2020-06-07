@@ -5,6 +5,7 @@ import Board.Tile.Tile2;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Server {
 
@@ -46,7 +47,7 @@ public class Server {
             System.out.println("Awaiting connection");
             Socket client = this.server.accept();
             new Thread( () -> {
-                handleClientConnection(client);
+                handeClientConnectionObject(client);
                 System.out.println("Client connected");
             }).start();
         }
@@ -65,16 +66,14 @@ public class Server {
     private void handleClientConnection(Socket client){
 
         try {
-            DataInputStream in = new DataInputStream(client.getInputStream());
-            DataOutputStream out = new DataOutputStream(client.getOutputStream());
+            ObjectInputStream in = new ObjectInputStream(client.getInputStream());
+            ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
 
             boolean connected = true;
 
             out.writeUTF("It me, server");
             while (connected){
-                String message =  in.readUTF();
                 Tile2[][] gameBoard;
-                out.writeUTF(message);
 
             }
             client.close();
