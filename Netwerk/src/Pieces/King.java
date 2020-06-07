@@ -23,7 +23,11 @@ public class King extends Piece{
                 e.printStackTrace();
             }
         }else {
-
+            try {
+                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/kingWhite.png")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

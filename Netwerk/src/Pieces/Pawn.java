@@ -23,7 +23,11 @@ public class Pawn extends Piece{
                 e.printStackTrace();
             }
         }else {
-
+            try {
+                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/pawnWhite.png")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

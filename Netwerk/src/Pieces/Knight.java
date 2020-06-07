@@ -26,7 +26,11 @@ public class Knight extends Piece{
                 e.printStackTrace();
             }
         }else {
-
+            try {
+                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/knightWhite.png")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

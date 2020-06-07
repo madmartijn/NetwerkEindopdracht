@@ -158,6 +158,34 @@ public class Window extends Application {
             gameBoard[i][1].setPiece(new Pawn(false));
         }
 
+        for (int i = 0; i < gameBoard[1].length; i++){
+            gameBoard[i][6].setOccupied(true);
+            gameBoard[i][6].setPiece(new Pawn(true));
+        }
+
+        gameBoard[4][7].setOccupied(true);
+        gameBoard[4][7].setPiece(new Queen(true));
+
+        gameBoard[3][7].setOccupied(true);
+        gameBoard[3][7].setPiece(new King(true));
+
+        gameBoard[5][7].setOccupied(true);
+        gameBoard[5][7].setPiece(new Bishop(true));
+
+        gameBoard[2][7].setOccupied(true);
+        gameBoard[2][7].setPiece(new Bishop(true));
+
+        gameBoard[6][7].setOccupied(true);
+        gameBoard[6][7].setPiece(new Knight(true));
+
+        gameBoard[1][7].setOccupied(true);
+        gameBoard[1][7].setPiece(new Knight(true));
+
+        gameBoard[7][7].setOccupied(true);
+        gameBoard[7][7].setPiece(new Rook(true));
+
+        gameBoard[0][7].setOccupied(true);
+        gameBoard[0][7].setPiece(new Rook(true));
     }
 
     private void onMouseClick(MouseEvent event){
@@ -193,6 +221,8 @@ public class Window extends Application {
                                 tile.setOccupied(true);
                                 tile.setPiece(this.grabbedPiece.getPiece());
                                 this.grabbedPiece.removePiece();
+                                this.holdingPiece = false;
+                            }else {
                                 this.holdingPiece = false;
                             }
                         }
