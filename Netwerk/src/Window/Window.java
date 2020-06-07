@@ -84,7 +84,7 @@ public class Window extends Application {
 
     private AffineTransform pieceTransform(Tile2 tile){
         AffineTransform tx = new AffineTransform();
-        tx.translate(tile.getRectangle2D().getMinX() + 5, tile.getRectangle2D().getMinY() + 5);
+        tx.translate(tile.getX() + 5, tile.getY() + 5);
         tx.scale(0.1,0.1);
         return tx;
     }
@@ -98,7 +98,7 @@ public class Window extends Application {
         if (holdingPiece){
             graphics.setColor(Color.CYAN);
             for (Tile2 tile : allowedMoves){
-                graphics.drawRect((int)tile.getRectangle2D().getMinX(), (int)tile.getRectangle2D().getMinY(), (int)tile.getRectangle2D().getWidth(), (int)tile.getRectangle2D().getHeight());
+                graphics.drawRect(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
             }
             graphics.setColor(Color.black);
         }
@@ -222,7 +222,7 @@ public class Window extends Application {
                 if (event.getButton() == MouseButton.PRIMARY){
                     for (Tile2[] tile2 : this.gameBoard){
                         for (Tile2 tile : tile2){
-                            if (tile.getRectangle2D().contains(event.getX(), event.getY()) && tile.isOccupied() && tile.getPiece().isWhite() == userIsWhite){   //Find the selected tile and check if it's occupied to grab the piece
+                            if (new Rectangle2D(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight()).contains(event.getX(), event.getY()) && tile.isOccupied() && tile.getPiece().isWhite() == userIsWhite){   //Find the selected tile and check if it's occupied to grab the piece
                                 System.out.println("TILE SELECTION");
                                 this.holdingPiece = true;
                                 this.grabbedPiece = tile;
@@ -236,14 +236,13 @@ public class Window extends Application {
                 if (event.getButton() == MouseButton.PRIMARY){
                     for (Tile2[] tile2 : this.gameBoard){
                         for (Tile2 tile : tile2){
-                            if (tile.getRectangle2D().contains(event.getX(), event.getY()) && !tile.isOccupied()){  //Target tile is empty, place the piece      //TODO add  && allowedMoves.contains(tile)
+                            if (new Rectangle2D(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight()).contains(event.getX(), event.getY()) && !tile.isOccupied()){  //Target tile is empty, place the piece      //TODO add  && allowedMoves.contains(tile)
                                 System.out.println("PLACEMENT");
                                 tile.setPiece(this.grabbedPiece.getPiece());
                                 tile.setOccupied(true);
                                 this.grabbedPiece.removePiece();
                                 this.holdingPiece = false;
-                                this.status = 2;
-                            }else if (tile.getRectangle2D().contains(event.getX(), event.getY()) && tile.isOccupied()  && tile.getPiece().isWhite() != grabbedPiece.getPiece().isWhite()){     //Target tile is occupied, remove the existing piece and place selected piece.        //TODO add  && allowedMoves.contains(tile)
+                            }else if (new Rectangle2D(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight()).contains(event.getX(), event.getY()) && tile.isOccupied()  && tile.getPiece().isWhite() != grabbedPiece.getPiece().isWhite()){     //Target tile is occupied, remove the existing piece and place selected piece.        //TODO add  && allowedMoves.contains(tile)
                                 System.out.println("MURDER");
 
                                 if (tile.getPiece().isKing()){

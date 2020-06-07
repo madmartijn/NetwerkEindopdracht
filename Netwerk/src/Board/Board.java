@@ -32,7 +32,7 @@ public class Board {
 //            System.out.println(i1);
 //            System.out.println(i2);
 
-            tiles[i1][i2] = new Tile2(false, new Rectangle2D(i1*60 + (int)this.canvas.getWidth()/4, +i2*60 + 26, 60,60));
+            tiles[i1][i2] = new Tile2(false, i1*60 + (int)this.canvas.getWidth()/4, +i2*60 + 26, 60,60);
 
             if (i2 == tiles[1].length-1){
                 i1++;
@@ -52,19 +52,16 @@ public class Board {
         while (i1 < gameBoard.length && i2 < gameBoard[1].length){
 //            graphics.drawRect(i1*64 + (int)canvas.getWidth()/4, -i2*64 - (int)canvas.getHeight()/4, 64,64);
 
-            gameBoard[i1][i2].getRectangle2D();
-            graphics.drawRect((int)gameBoard[i1][i2].getRectangle2D().getMinX(), (int)gameBoard[i1][i2].getRectangle2D().getMinY(),
-                            (int)gameBoard[i1][i2].getRectangle2D().getWidth(), (int)gameBoard[i1][i2].getRectangle2D().getHeight());
+//            gameBoard[i1][i2].getRectangle2D();
+            graphics.drawRect(gameBoard[i1][i2].getX(), gameBoard[i1][i2].getY(), gameBoard[i1][i2].getWidth(), gameBoard[i1][i2].getHeight());
 
             graphics.setColor(Color.gray);
             if (i1%2 != 0){
                 if (i2%2 == 0){
-                    graphics.fillRect((int)gameBoard[i1][i2].getRectangle2D().getMinX(), (int)gameBoard[i1][i2].getRectangle2D().getMinY(),
-                                    (int)gameBoard[i1][i2].getRectangle2D().getWidth(), (int)gameBoard[i1][i2].getRectangle2D().getHeight());
+                    graphics.fillRect(gameBoard[i1][i2].getX(), gameBoard[i1][i2].getY(), gameBoard[i1][i2].getWidth(), gameBoard[i1][i2].getHeight());
                 }
             }else if (i2%2 != 0){
-                graphics.fillRect((int)gameBoard[i1][i2].getRectangle2D().getMinX(), (int)gameBoard[i1][i2].getRectangle2D().getMinY(),
-                                (int)gameBoard[i1][i2].getRectangle2D().getWidth(), (int)gameBoard[i1][i2].getRectangle2D().getHeight());
+                graphics.fillRect(gameBoard[i1][i2].getX(), gameBoard[i1][i2].getY(), gameBoard[i1][i2].getWidth(), gameBoard[i1][i2].getHeight());
             }
 
             if (i2 == gameBoard[1].length-1){

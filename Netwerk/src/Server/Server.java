@@ -1,37 +1,108 @@
 package Server;
 
-import java.io.IOException;
+import Board.Tile.Tile2;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
 
     private int port;
-    private ServerSocket serverSocket;
+    private ServerSocket server;
+    String host;
+    private Thread serverThread;
+    private ArrayList<Client> clients;
+    private ArrayList<Thread> threads;
+    boolean running;
 
-    public Server(int port) {
+    public Server(String host, int port) {
+        this.host = host;
         this.port = port;
+        this.clients = new ArrayList<>();
+        this.threads = new ArrayList<>();
+
+        this.running = false;
+        this.server = null;
+
     }
 
-    public void connect () {
+    public void start () throws IOException {
+        if (this.server !=  null){
+            System.out.println("Server already running");
+            return;
+        }
+
 
         try {
-            this.serverSocket = new ServerSocket(port);
+            this.server = new ServerSocket(this.port);
+            this.running = true;
+        } catch (IOException e) {
+            throw e;
+        }
 
-            Socket player1 = this.serverSocket.accept();
-            System.out.println("Player 1 connected via: " + player1.getInetAddress().getHostAddress());
 
-            //Socket player2 = this.serverSocket.accept();
-            //System.out.println("Player 2 connected via: " + player2.getInetAddress().getHostAddress());
+        while (this.running){
+            System.out.println("Awaiting connection");
+            Socket client = this.server.accept();
+            new Thread( () -> {
+                handleClientConnection(client);
+                System.out.println("Client connected");
+            }).start();
+        }
 
-            while (player1.getInputStream().read() != 3) {
-                System.out.println(player1.getInputStream().read());
+
+        System.out.println("Server is started and listening on port " + this.port);
+
+
+//        return true;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    private void handleClientConnection(Socket client){
+
+        try {
+            DataInputStream in = new DataInputStream(client.getInputStream());
+            DataOutputStream out = new DataOutputStream(client.getOutputStream());
+
+            boolean connected = true;
+
+            out.writeUTF("It me, server");
+            while (connected){
+                String message =  in.readUTF();
+                Tile2[][] gameBoard;
+                out.writeUTF(message);
+
             }
-            //System.out.println(player2.getInputStream().read());
+            client.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private void handeClientConnectionObject(Socket client){
+        System.out.println("OBJECT");
+        try {
+            ObjectInputStream in = new ObjectInputStream(client.getInputStream());
+            ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
 
+            boolean connected = true;
+
+            out.writeObject(new String("Connected"));
+
+            while (connected){
+                Tile2[][] gameBoard = (Tile2[][]) in.readObject();
+                out.writeObject(gameBoard);
+
+            }
+            client.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
