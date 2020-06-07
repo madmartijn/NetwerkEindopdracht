@@ -7,6 +7,8 @@ import Board.Move.Move;
 import Board.Tile.Tile;
 import Board.Tile.Tile2;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,16 @@ public class Knight extends Piece{
 
     public Knight(boolean isWhite) {
         super(isWhite);
+
+        if (!isWhite){
+            try {
+                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/knightBlack.png")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+
+        }
     }
 
     // calculates all legal moves for a knight to make.

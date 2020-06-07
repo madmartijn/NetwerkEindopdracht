@@ -8,6 +8,8 @@ import Board.Move.Move;
 import Board.Tile.Tile;
 import Board.Tile.Tile2;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,16 @@ public class Bishop extends Piece{
 
     public Bishop(boolean isWhite) {
         super(isWhite);
+
+        if (!isWhite){
+            try {
+                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/rookBlack.png")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+
+        }
     }
 
     @Override

@@ -21,12 +21,6 @@ public abstract class Piece {
     public Piece( boolean isWhite) {
         this.isWhite = isWhite;
         this.isFirstMove = false;
-
-        try {
-            image = ImageIO.read(this.getClass().getResourceAsStream("/rook.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public Tile2 getPiecePosition() {
@@ -49,5 +43,7 @@ public abstract class Piece {
         return image;
     }
 
-
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
 }

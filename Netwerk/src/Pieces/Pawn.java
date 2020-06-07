@@ -4,6 +4,8 @@ import Board.*;
 import Board.Tile.*;
 import Board.Move.*;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,16 @@ public class Pawn extends Piece{
 
     public Pawn(boolean isWhite) {
         super(isWhite);
+
+        if (!isWhite){
+            try {
+                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/rookBlack.png")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+
+        }
     }
 
     @Override

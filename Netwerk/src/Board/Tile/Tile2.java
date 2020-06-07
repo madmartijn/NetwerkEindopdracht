@@ -39,4 +39,10 @@ public class Tile2 {
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
+
+    public void removePiece(){
+        this.occupied = false;
+        this.piece = null;
+        System.out.println("piece removed");
+    }
 }

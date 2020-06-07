@@ -56,6 +56,7 @@ public class Board {
             graphics.drawRect((int)gameBoard[i1][i2].getRectangle2D().getMinX(), (int)gameBoard[i1][i2].getRectangle2D().getMinY(),
                             (int)gameBoard[i1][i2].getRectangle2D().getWidth(), (int)gameBoard[i1][i2].getRectangle2D().getHeight());
 
+            graphics.setColor(Color.gray);
             if (i1%2 != 0){
                 if (i2%2 == 0){
                     graphics.fillRect((int)gameBoard[i1][i2].getRectangle2D().getMinX(), (int)gameBoard[i1][i2].getRectangle2D().getMinY(),
@@ -72,6 +73,8 @@ public class Board {
             }else {
                 i2++;
             }
+
+            graphics.setColor(Color.black);
         }
     }
 
