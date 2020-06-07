@@ -15,8 +15,8 @@ public class Bishop extends Piece{
 
     private static int[] CANDIDATE_MOVE_VECTOR = {-9, -7, 7, 9};
 
-    public Bishop(Tile2 piecePosition, boolean isWhite) {
-        super(piecePosition, isWhite);
+    public Bishop(boolean isWhite) {
+        super(isWhite);
     }
 
     @Override

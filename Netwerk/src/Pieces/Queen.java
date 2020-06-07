@@ -11,8 +11,8 @@ public class Queen extends Piece{
 
     private static int[] CANDIDATE_MOVE_VECTOR = {-9, -8, -7, -1, 1, 7, 8, 9};
 
-    public Queen(Tile2 piecePosition, boolean isWhite) {
-        super(piecePosition, isWhite);
+    public Queen(boolean isWhite) {
+        super(isWhite);
     }
 
     @Override

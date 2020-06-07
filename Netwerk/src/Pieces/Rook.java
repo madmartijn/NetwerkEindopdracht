@@ -12,8 +12,8 @@ public class Rook extends Piece{
     private static int[] CANDIDATE_MOVE_VECTOR = {-8, -1, 1, 8};
 
 
-    public Rook(Tile2 piecePosition, boolean isWhite) {
-        super(piecePosition, isWhite);
+    public Rook(boolean isWhite) {
+        super(isWhite);
     }
 
     @Override

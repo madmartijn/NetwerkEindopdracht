@@ -11,8 +11,8 @@ public class King extends Piece{
 
     private static int[] CANDIDATE_MOVE_COORDINATE = {-9, -8, -7, -1, 1, 7, 8, 9};
 
-    public King(Tile2 piecePosition, boolean isWhite) {
-        super(piecePosition, isWhite);
+    public King(boolean isWhite) {
+        super(isWhite);
     }
 
     @Override
