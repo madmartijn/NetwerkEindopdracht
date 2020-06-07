@@ -1,0 +1,59 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 22/06/2016 15:28
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-bishop:before { content: "\f100"; }
+.flaticon-chess-board:before { content: "\f101"; }
+.flaticon-chess-clock:before { content: "\f102"; }
+.flaticon-chess-clock-1:before { content: "\f103"; }
+.flaticon-chessboard:before { content: "\f104"; }
+.flaticon-king:before { content: "\f105"; }
+.flaticon-knight:before { content: "\f106"; }
+.flaticon-pawn:before { content: "\f107"; }
+.flaticon-queen:before { content: "\f108"; }
+.flaticon-rook:before { content: "\f109"; }
+    
+    $font-Flaticon-bishop: "\f100";
+    $font-Flaticon-chess-board: "\f101";
+    $font-Flaticon-chess-clock: "\f102";
+    $font-Flaticon-chess-clock-1: "\f103";
+    $font-Flaticon-chessboard: "\f104";
+    $font-Flaticon-king: "\f105";
+    $font-Flaticon-knight: "\f106";
+    $font-Flaticon-pawn: "\f107";
+    $font-Flaticon-queen: "\f108";
+    $font-Flaticon-rook: "\f109";

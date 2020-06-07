@@ -22,7 +22,7 @@ public class Bishop extends Piece{
 
         if (!isWhite){
             try {
-                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/rookBlack.png")));
+                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/bishopBlack.png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }

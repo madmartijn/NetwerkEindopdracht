@@ -18,7 +18,7 @@ public class Pawn extends Piece{
 
         if (!isWhite){
             try {
-                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/rookBlack.png")));
+                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/pawnBlack.png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }

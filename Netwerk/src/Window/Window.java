@@ -7,6 +7,7 @@ import Pieces.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseButton;
@@ -32,6 +33,8 @@ public class Window extends Application {
 
     private boolean holdingPiece;
     private Tile2 grabbedPiece;
+    private boolean userIsWhite;
+    private boolean gameInProgress;
 
     @Override
     public void start(Stage stage) throws Exception{
@@ -62,7 +65,7 @@ public class Window extends Application {
 
 
 
-        gameStart();
+//        gameStart();
 
 
         stage.setScene(new Scene(mainPane));
@@ -74,8 +77,8 @@ public class Window extends Application {
 
     private AffineTransform pieceTransform(Tile2 tile){
         AffineTransform tx = new AffineTransform();
-        tx.translate(tile.getRectangle2D().getMinX() + 10, tile.getRectangle2D().getMinY() + 9);
-        tx.scale(0.05,0.05);
+        tx.translate(tile.getRectangle2D().getMinX() + 5, tile.getRectangle2D().getMinY() + 9);
+        tx.scale(0.1,0.1);
         return tx;
     }
 
@@ -93,6 +96,31 @@ public class Window extends Application {
             }
         }
 
+        //UI elements
+        //White selector
+        graphics.drawRect(5,5,85,25);
+        if (userIsWhite){
+            graphics.setColor(Color.CYAN);
+            graphics.fillRect(5,5,85,25);
+            graphics.setColor(Color.black);
+        }
+        graphics.drawString("Colour: White", 10,20);
+
+        //Black selector
+        graphics.drawRect(5,35,85,25);
+        if (!userIsWhite) {
+            graphics.setColor(Color.CYAN);
+            graphics.fillRect(5,35,85,25);
+            graphics.setColor(Color.black);
+        }
+        graphics.drawString("Colour: Black", 10, 50);
+
+        //Start button
+        graphics.drawRect(5, 65, 85, 25);
+        graphics.setColor(Color.green);
+        graphics.fillRect(5, 65, 85, 25);
+        graphics.setColor(Color.black);
+        graphics.drawString("Start game", 10, 80);
     }
 
     public void update(double deltaTime){
@@ -134,41 +162,54 @@ public class Window extends Application {
 
     private void onMouseClick(MouseEvent event){
         System.out.println("MOUSE EVENT");
+        System.out.println(gameInProgress);
 
-        if (!this.holdingPiece){
-            if (event.getButton() == MouseButton.PRIMARY){
-                for (Tile2[] tile2 : this.gameBoard){
-                    for (Tile2 tile : tile2){
-                        if (tile.getRectangle2D().contains(event.getX(), event.getY()) && tile.isOccupied()){   //Find the selected tile and check if it's occupied to grab the piece
-                            System.out.println("TILE SELECTION");
-                            this.holdingPiece = true;
-                            this.grabbedPiece = tile;
+        if (gameInProgress){
+            if (!this.holdingPiece){
+                if (event.getButton() == MouseButton.PRIMARY){
+                    for (Tile2[] tile2 : this.gameBoard){
+                        for (Tile2 tile : tile2){
+                            if (tile.getRectangle2D().contains(event.getX(), event.getY()) && tile.isOccupied() && tile.getPiece().isWhite() == userIsWhite){   //Find the selected tile and check if it's occupied to grab the piece
+                                System.out.println("TILE SELECTION");
+                                this.holdingPiece = true;
+                                this.grabbedPiece = tile;
+                            }
+                        }
+                    }
+                }
+            }else {
+                if (event.getButton() == MouseButton.PRIMARY){
+                    for (Tile2[] tile2 : this.gameBoard){
+                        for (Tile2 tile : tile2){
+                            if (tile.getRectangle2D().contains(event.getX(), event.getY()) && !tile.isOccupied()){  //Target tile is empty, place the piece
+                                System.out.println("PLACEMENT");
+                                tile.setPiece(this.grabbedPiece.getPiece());
+                                tile.setOccupied(true);
+                                this.grabbedPiece.removePiece();
+                                this.holdingPiece = false;
+                            }else if (tile.getRectangle2D().contains(event.getX(), event.getY()) && tile.isOccupied()  && tile.getPiece().isWhite() != grabbedPiece.getPiece().isWhite()){     //Target tile is occupied, remove the existing piece and place selected piece.
+                                System.out.println("MURDER");
+                                tile.removePiece();
+                                tile.setOccupied(true);
+                                tile.setPiece(this.grabbedPiece.getPiece());
+                                this.grabbedPiece.removePiece();
+                                this.holdingPiece = false;
+                            }
                         }
                     }
                 }
             }
         }else {
-            if (event.getButton() == MouseButton.PRIMARY){
-                for (Tile2[] tile2 : this.gameBoard){
-                    for (Tile2 tile : tile2){
-                        if (tile.getRectangle2D().contains(event.getX(), event.getY()) && !tile.isOccupied()){  //Target tile is empty, place the piece
-                            System.out.println("PLACEMENT");
-                            tile.setPiece(this.grabbedPiece.getPiece());
-                            tile.setOccupied(true);
-                            this.grabbedPiece.removePiece();
-                            this.holdingPiece = false;
-                        }else if (tile.getRectangle2D().contains(event.getX(), event.getY()) && tile.isOccupied()){     //Target tile is occupied, remove the existing piece and place selected piece.
-                            System.out.println("MURDER");
-                            tile.removePiece();
-                            tile.setOccupied(true);
-                            tile.setPiece(this.grabbedPiece.getPiece());
-                            this.grabbedPiece.removePiece();
-                            this.holdingPiece = false;
-                        }
-                    }
-                }
+            if (new Rectangle2D(5,5,85,25).contains(event.getX(),event.getY())){
+                userIsWhite = true;
+            }else if (new Rectangle2D(5,35,85,25).contains(event.getX(), event.getY())){
+                userIsWhite = false;
+            }else if (new Rectangle2D(5, 65,85,25).contains(event.getX(), event.getY())){
+                gameInProgress = true;
+                gameStart();
             }
         }
+
     }
 
 
