@@ -285,7 +285,7 @@ public class Window extends Application {
 
     }
 
-    public int getStatus() {
-        return this.status;
+    public Tile2[][] getGameBoard() {
+        return gameBoard;
     }
 }
