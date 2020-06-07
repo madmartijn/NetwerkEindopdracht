@@ -77,7 +77,7 @@ public class Window extends Application {
 
     private AffineTransform pieceTransform(Tile2 tile){
         AffineTransform tx = new AffineTransform();
-        tx.translate(tile.getRectangle2D().getMinX() + 5, tile.getRectangle2D().getMinY() + 9);
+        tx.translate(tile.getRectangle2D().getMinX() + 5, tile.getRectangle2D().getMinY() + 5);
         tx.scale(0.1,0.1);
         return tx;
     }
@@ -129,63 +129,73 @@ public class Window extends Application {
 
     public void gameStart(){
 
-        gameBoard[0][0].setOccupied(true);
-        gameBoard[0][0].setPiece(new Rook(false));
+        gameBoard[0][4].setOccupied(true);
+        gameBoard[0][4].setPiece(new Rook(false));
 
-        gameBoard[7][0].setOccupied(true);
-        gameBoard[7][0].setPiece(new Rook(false));
+        gameBoard[7][4].setOccupied(true);
+        gameBoard[7][4].setPiece(new Rook(false));
 
-        gameBoard[1][0].setOccupied(true);
-        gameBoard[1][0].setPiece(new Knight(false));
+        gameBoard[1][4].setOccupied(true);
+        gameBoard[1][4].setPiece(new Knight(false));
 
-        gameBoard[6][0].setOccupied(true);
-        gameBoard[6][0].setPiece(new Knight(false));
+        gameBoard[6][4].setOccupied(true);
+        gameBoard[6][4].setPiece(new Knight(false));
 
-        gameBoard[2][0].setOccupied(true);
-        gameBoard[2][0].setPiece(new Bishop(false));
+        gameBoard[2][4].setOccupied(true);
+        gameBoard[2][4].setPiece(new Bishop(false));
 
-        gameBoard[5][0].setOccupied(true);
-        gameBoard[5][0].setPiece(new Bishop(false));
+        gameBoard[5][4].setOccupied(true);
+        gameBoard[5][4].setPiece(new Bishop(false));
 
-        gameBoard[3][0].setOccupied(true);
-        gameBoard[3][0].setPiece(new King(false));
+        gameBoard[3][4].setOccupied(true);
+        gameBoard[3][4].setPiece(new King(false));
 
-        gameBoard[4][0].setOccupied(true);
-        gameBoard[4][0].setPiece(new Queen(false));
+        gameBoard[4][4].setOccupied(true);
+        gameBoard[4][4].setPiece(new Queen(false));
 
-        for (int i = 0; i < gameBoard[1].length; i++){
-            gameBoard[i][1].setOccupied(true);
-            gameBoard[i][1].setPiece(new Pawn(false));
+        for (int i = 0; i < gameBoard.length; i++){
+            gameBoard[i][5].setOccupied(true);
+            gameBoard[i][5].setPiece(new Pawn(false, false));
         }
 
-        for (int i = 0; i < gameBoard[1].length; i++){
-            gameBoard[i][6].setOccupied(true);
-            gameBoard[i][6].setPiece(new Pawn(true));
+        for (int i = 0; i < gameBoard.length; i++){
+            gameBoard[i][3].setOccupied(true);
+            gameBoard[i][3].setPiece(new Pawn(false, true));
         }
 
-        gameBoard[4][7].setOccupied(true);
-        gameBoard[4][7].setPiece(new Queen(true));
+        for (int i = 0; i < gameBoard.length; i++){
+            gameBoard[i][12].setOccupied(true);
+            gameBoard[i][12].setPiece(new Pawn(true, true));
+        }
 
-        gameBoard[3][7].setOccupied(true);
-        gameBoard[3][7].setPiece(new King(true));
+        for (int i = 0; i < gameBoard.length; i++){
+            gameBoard[i][10].setOccupied(true);
+            gameBoard[i][10].setPiece(new Pawn(true, false));
+        }
 
-        gameBoard[5][7].setOccupied(true);
-        gameBoard[5][7].setPiece(new Bishop(true));
+        gameBoard[4][11].setOccupied(true);
+        gameBoard[4][11].setPiece(new Queen(true));
 
-        gameBoard[2][7].setOccupied(true);
-        gameBoard[2][7].setPiece(new Bishop(true));
+        gameBoard[3][11].setOccupied(true);
+        gameBoard[3][11].setPiece(new King(true));
 
-        gameBoard[6][7].setOccupied(true);
-        gameBoard[6][7].setPiece(new Knight(true));
+        gameBoard[5][11].setOccupied(true);
+        gameBoard[5][11].setPiece(new Bishop(true));
 
-        gameBoard[1][7].setOccupied(true);
-        gameBoard[1][7].setPiece(new Knight(true));
+        gameBoard[2][11].setOccupied(true);
+        gameBoard[2][11].setPiece(new Bishop(true));
 
-        gameBoard[7][7].setOccupied(true);
-        gameBoard[7][7].setPiece(new Rook(true));
+        gameBoard[6][11].setOccupied(true);
+        gameBoard[6][11].setPiece(new Knight(true));
 
-        gameBoard[0][7].setOccupied(true);
-        gameBoard[0][7].setPiece(new Rook(true));
+        gameBoard[1][11].setOccupied(true);
+        gameBoard[1][11].setPiece(new Knight(true));
+
+        gameBoard[7][11].setOccupied(true);
+        gameBoard[7][11].setPiece(new Rook(true));
+
+        gameBoard[0][11].setOccupied(true);
+        gameBoard[0][11].setPiece(new Rook(true));
     }
 
     private void onMouseClick(MouseEvent event){
