@@ -36,38 +36,10 @@ public class Knight extends Piece{
 
     // calculates all legal moves for a knight to make.
     @Override
-    public List<Move> PossibleMoves(Board board) {
+    public List<Tile2> PossibleMoves(Tile2[][] gameBoard, Tile2 currentTile) {
+        List<Tile2> legalMoves = new ArrayList<>();
 
-        int candidateDestinationCoordinate;
-        List<Move> legalMoves = new ArrayList<>();
 
-//        for (int currentCandidateOffset : POSSIBLE_MOVES){
-//
-//            candidateDestinationCoordinate = this.piecePosition + currentCandidateOffset;
-//
-//            if(BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
-//
-//                if(isFirstColumnException(this.piecePosition, currentCandidateOffset) ||
-//                isSecondColumnException(this.piecePosition, currentCandidateOffset) ||
-//                isSeventhColumnException(this.piecePosition, currentCandidateOffset) ||
-//                isEightColumnException(this.piecePosition, currentCandidateOffset)){
-//                    continue;
-//                }
-//
-//                final Tile candidateDestinationTile = board.getTile(candidateDestinationCoordinate);
-//
-//                if(!candidateDestinationTile.isTileOccupied()){
-//                    legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
-//                }else {
-//                    final Piece pieceAtDestination = candidateDestinationTile.getPiece();
-//                    final boolean color = pieceAtDestination.isWhite();
-//
-//                    if(color != isWhite()){
-//                        legalMoves.add(new AttackMove(board, this, candidateDestinationCoordinate, pieceAtDestination));
-//                    }
-//                }
-//            }
-//        }
         return legalMoves;
     }
 
