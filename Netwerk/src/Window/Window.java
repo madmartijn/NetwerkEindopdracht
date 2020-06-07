@@ -29,26 +29,21 @@ import java.util.List;
 
 import static javafx.application.Application.launch;
 
-public class Window extends Application implements Runnable{
+public class Window extends Application {
 
     private Board board;
     private Stage stage;
     private Canvas canvas;
     private Tile2[][] gameBoard;
 
-    private Socket player1;
-    private Socket player2;
-    private DataInputStream fromPlayer1;
-    private DataOutputStream toPlayer1;
-    private DataInputStream fromPlayer2;
-    private DataOutputStream toPlayer2;
-    private boolean continueToPlay = true;
-
     private boolean holdingPiece;
     private Tile2 grabbedPiece;
     private boolean userIsWhite;
     private boolean gameInProgress;
     private List<Tile2> allowedMoves = new ArrayList<>();
+
+    private String hostName;
+    private int port;
 
     @Override
     public void start(Stage stage) throws Exception{
@@ -282,30 +277,11 @@ public class Window extends Application implements Runnable{
 
 
     public static void main(String[] args) {
-        int port = 10000;
-        Server server = new Server(port);
-        server.start();
 
         launch(Window.class);
 
     }
 
-    public Window(Socket player1, Socket player2) {
-        this.player1 = player1;
-        this.player2 = player2;
-    }
 
-    @Override
-    public void run() {
 
-        try {
-            this.fromPlayer1 = new DataInputStream(player1.getInputStream());
-            this.toPlayer1 = new DataOutputStream(player1.getOutputStream());
-            this.fromPlayer2 = new DataInputStream(player2.getInputStream());
-            this.toPlayer2 = new DataOutputStream(player2.getOutputStream());
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
 }
