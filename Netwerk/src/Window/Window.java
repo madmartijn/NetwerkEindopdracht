@@ -16,6 +16,7 @@ import org.jfree.fx.FXGraphics2D;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -41,6 +42,7 @@ public class Window extends Application {
     private int status;
     private ObjectOutputStream toServer;
     private ObjectInputStream fromServer;
+    private DataInputStream playerID;
     private boolean won = false;
 
     private boolean myTurn = false;
@@ -307,10 +309,11 @@ public class Window extends Application {
 
             toServer = new ObjectOutputStream(socket.getOutputStream());
             fromServer = new ObjectInputStream(socket.getInputStream());
+            playerID = new DataInputStream(socket.getInputStream());
 
             new Thread( () -> {
                 try {
-                    int player = fromServer.readInt();
+                    int player = playerID.readInt();
 
                     if(player == 1){
                         System.out.println("You are player 1");
@@ -343,6 +346,7 @@ public class Window extends Application {
             }).start();
         } catch (IOException e) {
             e.printStackTrace();
+            e.getLocalizedMessage();
         }
     }
 
@@ -359,7 +363,7 @@ public class Window extends Application {
     }
 
     private void receiveInfoFromServer () throws IOException, ClassNotFoundException {
-        int status = fromServer.readInt();
+        int status = playerID.readInt();
 
         if(status == 3){
             continueToPlay = false;

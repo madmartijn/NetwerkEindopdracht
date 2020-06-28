@@ -55,15 +55,22 @@ class HandleASession implements Runnable{
     }
 
     public void run() {
+        System.out.println("kom ik hier");
+
         try {
+            System.out.println("kom ik er??");
             fromPlayer1 = new ObjectInputStream(player1.getInputStream());
             toPlayer1 = new ObjectOutputStream(player1.getOutputStream());
             fromPlayer2 = new ObjectInputStream(player2.getInputStream());
             toPlayer2 = new ObjectOutputStream(player2.getOutputStream());
 
+            System.out.println("en hier??");
+
             toPlayer1.write(1);
 
             while(true) {
+                System.out.println("en hier??");
+
                 this.gameBoard = (Tile2[][]) fromPlayer1.readObject();
 
                 System.out.println("Hier kom ik");
@@ -95,7 +102,7 @@ class HandleASession implements Runnable{
                 }
             }
         }catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("error" + e.getLocalizedMessage());
         }
     }
 
