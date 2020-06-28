@@ -1,6 +1,6 @@
 package Server;
 
-import Board.Tile.Tile2;
+import Board.Tile2;
 import Server.Server;
 
 import java.io.*;

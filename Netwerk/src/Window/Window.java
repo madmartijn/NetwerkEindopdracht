@@ -1,13 +1,10 @@
 package Window;
 
 import Board.Board;
-import Board.Tile.Tile;
-import Board.Tile.Tile2;
+import Board.Tile2;
 import Pieces.*;
-import Server.Server;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,12 +13,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
-import org.jfree.fx.ResizableCanvas;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.io.*;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,11 +90,12 @@ public class Window extends Application {
         this.board.draw(graphics, this.canvas);
 
         if (holdingPiece){
-            graphics.setColor(Color.CYAN);
             for (Tile2 tile : allowedMoves){
+                graphics.setColor(Color.CYAN);
+                graphics.fillRect(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
+                graphics.setColor(Color.black);
                 graphics.drawRect(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
             }
-            graphics.setColor(Color.black);
         }
 
         for (Tile2[] tile : this.board.getGameBoard()){
@@ -236,13 +231,13 @@ public class Window extends Application {
                 if (event.getButton() == MouseButton.PRIMARY){
                     for (Tile2[] tile2 : this.gameBoard){
                         for (Tile2 tile : tile2){
-                            if (new Rectangle2D(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight()).contains(event.getX(), event.getY()) && !tile.isOccupied()){  //Target tile is empty, place the piece      //TODO add  && allowedMoves.contains(tile)
+                            if (new Rectangle2D(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight()).contains(event.getX(), event.getY()) && !tile.isOccupied() && allowedMoves.contains(tile)){  //Target tile is empty, place the piece      //TODO add  && allowedMoves.contains(tile)
                                 System.out.println("PLACEMENT");
                                 tile.setPiece(this.grabbedPiece.getPiece());
                                 tile.setOccupied(true);
                                 this.grabbedPiece.removePiece();
                                 this.holdingPiece = false;
-                            }else if (new Rectangle2D(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight()).contains(event.getX(), event.getY()) && tile.isOccupied()  && tile.getPiece().isWhite() != grabbedPiece.getPiece().isWhite()){     //Target tile is occupied, remove the existing piece and place selected piece.        //TODO add  && allowedMoves.contains(tile)
+                            }else if (new Rectangle2D(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight()).contains(event.getX(), event.getY()) && tile.isOccupied()  && tile.getPiece().isWhite() != grabbedPiece.getPiece().isWhite() && allowedMoves.contains(tile)){     //Target tile is occupied, remove the existing piece and place selected piece.        //TODO add  && allowedMoves.contains(tile)
                                 System.out.println("MURDER");
 
                                 if (tile.getPiece().isKing()){
