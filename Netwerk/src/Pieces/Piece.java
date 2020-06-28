@@ -1,9 +1,6 @@
 package Pieces;
 
-import Board.Board;
-import Board.Move.Move;
-import Board.Tile.Tile2;
-import javafx.scene.image.Image;
+
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
