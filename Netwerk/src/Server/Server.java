@@ -1,114 +1,105 @@
 package Server;
 
-import Board.Tile.Tile2;
+import Board.Tile2;
 import Window.Window;
 
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class Server {
+    public void Start () {
+        new Thread(() -> {
+            try{
+                ServerSocket serverSocket = new ServerSocket(10000);
 
-    private int port;
-    private ServerSocket server;
-    String host;
-    private Thread serverThread;
-    private ArrayList<Client> clients;
-    private ArrayList<Thread> threads;
-    boolean running;
+                while (true) {
+                    Socket player1 = serverSocket.accept();
+                    new DataOutputStream(player1.getOutputStream()).write(1);
+                    System.out.println("Player 1 connected");
+
+                    Socket player2 = serverSocket.accept();
+                    new DataOutputStream(player2.getOutputStream()).write(2);
+                    System.out.println("Player 2 connected");
+
+                    new Thread(new HandleASession(player1, player2)).start();
+                    System.out.println("All players connected");
+                }
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+}
+
+class HandleASession implements Runnable{
+    private Socket player1;
+    private Socket player2;
+
+    private ObjectInputStream fromPlayer1;
+    private ObjectOutputStream toPlayer1;
+    private ObjectInputStream fromPlayer2;
+    private ObjectOutputStream toPlayer2;
+
+    private boolean continueToPlay = true;
+
     private Window window = new Window();
     private Tile2[][] gameBoard;
 
-    public Server(String host, int port) {
-        this.host = host;
-        this.port = port;
-        this.clients = new ArrayList<>();
-        this.threads = new ArrayList<>();
-
-        this.running = false;
-        this.server = null;
-        this.gameBoard = window.getGameBoard();
-
+    public HandleASession(Socket player1, Socket player2) {
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
-    public void start () throws IOException {
-        if (this.server !=  null){
-            System.out.println("Server already running");
-            return;
-        }
-
-
+    public void run() {
         try {
-            this.server = new ServerSocket(this.port);
-            this.running = true;
-        } catch (IOException e) {
-            throw e;
-        }
+            fromPlayer1 = new ObjectInputStream(player1.getInputStream());
+            toPlayer1 = new ObjectOutputStream(player1.getOutputStream());
+            fromPlayer2 = new ObjectInputStream(player2.getInputStream());
+            toPlayer2 = new ObjectOutputStream(player2.getOutputStream());
 
-        System.out.println("Awaiting connection");
-        Socket client = this.server.accept();
-        new Thread( () -> {
-            handeClientConnectionObject(client);
-            System.out.println("Client connected");
-        }).start();
+            toPlayer1.write(1);
 
-        System.out.println("Awaiting connection");
-        Socket client2 = this.server.accept();
-        new Thread( () -> {
-            handeClientConnectionObject(client2);
-            System.out.println("Client connected");
-        }).start();
+            while(true) {
+                this.gameBoard = (Tile2[][]) fromPlayer1.readObject();
 
-        System.out.println("Server is started and listening on port " + this.port);
+                System.out.println("Hier kom ik");
 
-
-//        return true;
-    }
-
-    public boolean isRunning() {
-        return running;
-    }
-
-    private void handleClientConnection(Socket client){
-
-        try {
-            ObjectInputStream in = new ObjectInputStream(client.getInputStream());
-            ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
-
-            boolean connected = true;
-
-            out.writeUTF("It me, server");
-            while (connected){
-                Tile2[][] gameBoard;
-
-            }
-            client.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void handeClientConnectionObject(Socket client){
-        System.out.println("OBJECT");
-        try {
-            ObjectInputStream in = new ObjectInputStream(client.getInputStream());
-            ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
-
-            boolean connected = true;
-
-            while (connected){
-                out.writeObject(this.gameBoard);
-                this.gameBoard = window.getGameBoard();
-
-                if(window.isGameInProgress()){
-                    connected = window.isGameInProgress();
+                if(this.window.isWon()){
+                    toPlayer1.write(3);
+                    toPlayer2.write(3);
+                    sendMove(toPlayer2, this.gameBoard);
+                    System.out.println("Player 1 has won");
+                    break;
+                }else {
+                    System.out.println("Player 2 turn");
+                    toPlayer2.write(5);
+                    sendMove(toPlayer2, this.gameBoard);
                 }
 
+                this.gameBoard = (Tile2[][]) fromPlayer2.readObject();
+
+                if(this.window.isWon()) {
+                    toPlayer1.write(4);
+                    toPlayer2.write(4);
+                    sendMove(toPlayer1, this.gameBoard);
+                    System.out.println("Player 2 has won");
+                    break;
+                }else {
+                    System.out.println("Player 1 turn");
+                    toPlayer1.write(5);
+                    sendMove(toPlayer1, this.gameBoard);
+                }
             }
-            client.close();
-        } catch (IOException e) {
+        }catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private void sendMove(ObjectOutputStream toPlayer, Tile2[][] gameBoard) throws IOException {
+        toPlayer.writeObject(gameBoard);
     }
 }

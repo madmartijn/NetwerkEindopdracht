@@ -16,6 +16,10 @@ import org.jfree.fx.FXGraphics2D;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +39,13 @@ public class Window extends Application {
     private List<Tile2> allowedMoves = new ArrayList<>();
 
     private int status;
+    private ObjectOutputStream toServer;
+    private ObjectInputStream fromServer;
+    private boolean won = false;
+
+    private boolean myTurn = false;
+    private boolean continueToPlay = true;
+    private boolean waiting = true;
 
     @Override
     public void start(Stage stage) throws Exception{
@@ -68,12 +79,11 @@ public class Window extends Application {
 
 //        gameStart();
 
-
+        connectToServer();
         stage.setScene(new Scene(mainPane));
         stage.setTitle("Chess");
         stage.show();
         draw(g2d);
-
     }
 
     private AffineTransform pieceTransform(Tile2 tile){
@@ -237,10 +247,13 @@ public class Window extends Application {
                                 tile.setOccupied(true);
                                 this.grabbedPiece.removePiece();
                                 this.holdingPiece = false;
+                                this.status = 2;
                             }else if (new Rectangle2D(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight()).contains(event.getX(), event.getY()) && tile.isOccupied()  && tile.getPiece().isWhite() != grabbedPiece.getPiece().isWhite() && allowedMoves.contains(tile)){     //Target tile is occupied, remove the existing piece and place selected piece.        //TODO add  && allowedMoves.contains(tile)
                                 System.out.println("MURDER");
 
                                 if (tile.getPiece().isKing()){
+                                    System.out.println("You have won");
+                                    won = true;
                                     gameInProgress = false;
                                 }
 
@@ -283,4 +296,85 @@ public class Window extends Application {
     public Tile2[][] getGameBoard() {
         return gameBoard;
     }
+
+    public boolean isWon() {
+        return won;
+    }
+
+    public void connectToServer () {
+        try {
+            Socket socket = new Socket("localhost", 10000);
+
+            toServer = new ObjectOutputStream(socket.getOutputStream());
+            fromServer = new ObjectInputStream(socket.getInputStream());
+
+            new Thread( () -> {
+                try {
+                    int player = fromServer.readInt();
+
+                    if(player == 1){
+                        System.out.println("You are player 1");
+
+                        if(userIsWhite){
+                            myTurn = true;
+                        }
+                    } else if (player == 2){
+                        System.out.println("You are player 2");
+
+                        if(userIsWhite){
+                            myTurn = true;
+                        }
+                    }
+
+                    while (continueToPlay) {
+                        if(player == 1){
+                            waitForPlayerAction();
+                            sendMove();
+                            receiveInfoFromServer();
+                        }else if (player == 2) {
+                            receiveInfoFromServer();
+                            waitForPlayerAction();
+                            sendMove();
+                        }
+                    }
+                }catch (IOException | InterruptedException | ClassNotFoundException e ){
+                    e.printStackTrace();
+                }
+            }).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void waitForPlayerAction() throws InterruptedException {
+        while (waiting) {
+            Thread.sleep(100);
+        }
+
+        waiting = true;
+    }
+
+    private void sendMove () throws IOException {
+        toServer.writeObject(this.gameBoard);
+    }
+
+    private void receiveInfoFromServer () throws IOException, ClassNotFoundException {
+        int status = fromServer.readInt();
+
+        if(status == 3){
+            continueToPlay = false;
+            System.out.println("Player 1 has won");
+        }else if (status == 4){
+            continueToPlay = false;
+            System.out.println("Player 2 has won");
+        }else {
+            receiveMove();
+            myTurn = true;
+        }
+    }
+
+    private void receiveMove() throws IOException, ClassNotFoundException {
+        this.gameBoard = (Tile2[][]) fromServer.readObject();
+    }
 }
+
