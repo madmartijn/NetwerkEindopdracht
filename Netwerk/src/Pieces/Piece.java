@@ -1,6 +1,6 @@
 package Pieces;
 
-
+import Board.Tile2;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

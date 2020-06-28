@@ -1,6 +1,6 @@
 package Pieces;
 
-import Board.Tile.Tile2;
+import Board.Tile2;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -35,13 +35,5 @@ public class Bishop extends Piece{
 
 
         return legalMoves;
-    }
-
-    private static boolean isFirstColumnExclusion(int currentPosition, int candidateOffset){
-        return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -9 || candidateOffset == 7);
-    }
-
-    private static boolean isEightColumnExclusion(int currentPosition, int candidateOffset){
-        return BoardUtils.EIGHT_COLUMN[currentPosition] && (candidateOffset == 9 || candidateOffset == -7);
     }
 }

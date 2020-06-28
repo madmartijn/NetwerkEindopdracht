@@ -1,8 +1,6 @@
 package Pieces;
 
 import Board.*;
-import Board.Move.*;
-import Board.Tile.Tile2;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -41,12 +39,4 @@ public class Rook extends Piece{
         return legalMoves;
     }
 
-
-    private static boolean isFirstColumnExclusion(int currentPosition, int candidateOffset){
-        return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -1);
-    }
-
-    private static boolean isEightColumnExclusion(int currentPosition, int candidateOffset){
-        return BoardUtils.EIGHT_COLUMN[currentPosition] && (candidateOffset == 1);
-    }
 }

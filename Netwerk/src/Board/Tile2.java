@@ -1,4 +1,4 @@
-package Board.Tile;
+package Board;
 
 import Pieces.Piece;
 import com.sun.javafx.geom.Point2D;

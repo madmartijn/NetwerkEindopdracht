@@ -1,7 +1,7 @@
 package Window;
 
 import Board.Board;
-import Board.Tile.Tile2;
+import Board.Tile2;
 import Pieces.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;

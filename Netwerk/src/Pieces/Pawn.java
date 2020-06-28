@@ -1,8 +1,6 @@
 package Pieces;
 
 import Board.*;
-import Board.Tile.*;
-import Board.Move.*;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;

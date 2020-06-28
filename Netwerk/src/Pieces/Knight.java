@@ -1,7 +1,6 @@
 package Pieces;
 
-import Board.*;
-import Board.Tile.Tile2;
+import Board.Tile2;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -39,21 +38,4 @@ public class Knight extends Piece{
         return legalMoves;
     }
 
-    private static boolean isFirstColumnException (final int currentPosition, final int candidateOffset) {
-        return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == -17 || candidateOffset == -10
-                || candidateOffset == 6 || candidateOffset == 15);
-    }
-
-    private static boolean isSecondColumnException (final int currentPosition, final int candidateOffset){
-        return BoardUtils.SECOND_COLUMN[currentPosition] && (candidateOffset == -10 || candidateOffset == 6);
-    }
-
-    private static boolean isSeventhColumnException (final int currentPosition, final int candidateOffset){
-        return BoardUtils.SEVENTH_COLUMN[currentPosition] && (candidateOffset == 10 || candidateOffset == -6);
-    }
-
-    private static boolean isEightColumnException (final int currentPosition, final int candidateOffset){
-        return BoardUtils.EIGHT_COLUMN[currentPosition] && (candidateOffset == 17 || candidateOffset == 10
-                || candidateOffset == -6 || candidateOffset == -15);
-    }
 }

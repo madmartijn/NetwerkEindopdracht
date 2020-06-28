@@ -1,6 +1,6 @@
 package Board;
 
-import Board.Tile.Tile2;
+import Board.Tile2;
 import javafx.scene.canvas.Canvas;
 
 import java.awt.*;
@@ -65,10 +65,6 @@ public class Board {
 
             graphics.setColor(Color.black);
         }
-    }
-
-    public Tile getTile(int tileCoordinate) {
-        return null;
     }
 
     public Tile2[][] getGameBoard() {
