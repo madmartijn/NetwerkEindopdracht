@@ -18,6 +18,7 @@ public class Server {
     private ArrayList<Thread> threads;
     boolean running;
     private Window window = new Window();
+    private Tile2[][] gameBoard;
 
     public Server(String host, int port) {
         this.host = host;
@@ -27,6 +28,7 @@ public class Server {
 
         this.running = false;
         this.server = null;
+        this.gameBoard = window.getGameBoard();
 
     }
 
@@ -95,17 +97,17 @@ public class Server {
 
             boolean connected = true;
 
-            Tile2[][] gameBoard = window.getGameBoard();
-
             while (connected){
-                out.writeObject(gameBoard);
-                gameBoard = (Tile2[][]) in.readObject();
+                out.writeObject(this.gameBoard);
+                this.gameBoard = window.getGameBoard();
+
+                if(window.isGameInProgress()){
+                    connected = window.isGameInProgress();
+                }
 
             }
             client.close();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

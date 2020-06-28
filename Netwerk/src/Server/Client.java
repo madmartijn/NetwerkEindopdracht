@@ -5,6 +5,7 @@ import Server.Server;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Client implements Runnable{
@@ -27,6 +28,7 @@ public class Client implements Runnable{
         this.socket = null;
         this.connected = false;
         this.out = null;
+        this.gameBoardOut = new Tile2[16][8];
     }
 
     public boolean connect(){
@@ -43,10 +45,9 @@ public class Client implements Runnable{
             this.in = new ObjectInputStream(this.socket.getInputStream());
 
             //this.gameBoardIn = (Tile2[][]) this.in.readObject();
-            
+
             while (this.connected){
 
-                this.gameBoardOut = new Tile2[16][8];
                 this.out.writeObject(gameBoardOut);
 
                 this.gameBoardIn = (Tile2[][]) this.in.readObject();
