@@ -32,7 +32,7 @@ public class Bishop extends Piece{
     @Override
     public List<Tile2> PossibleMoves(Tile2[][] gameBoard, Tile2 currentTile) {
         List<Tile2> legalMoves = new ArrayList<>();
-        
+
         int currentX = 0;
         int currentY = 0;
 
