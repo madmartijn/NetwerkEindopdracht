@@ -3,10 +3,7 @@ package Server;
 import Board.Tile2;
 import Window.Window;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -44,6 +41,9 @@ class HandleASession implements Runnable{
     private ObjectInputStream fromPlayer2;
     private ObjectOutputStream toPlayer2;
 
+    private DataOutputStream toPlayer1Data;
+    private DataOutputStream toPlayer2Data;
+
     private boolean continueToPlay = true;
 
     private Window window = new Window();
@@ -55,49 +55,46 @@ class HandleASession implements Runnable{
     }
 
     public void run() {
-        System.out.println("kom ik hier");
 
         try {
-            System.out.println("kom ik er??");
             fromPlayer1 = new ObjectInputStream(player1.getInputStream());
             toPlayer1 = new ObjectOutputStream(player1.getOutputStream());
             fromPlayer2 = new ObjectInputStream(player2.getInputStream());
             toPlayer2 = new ObjectOutputStream(player2.getOutputStream());
 
-            System.out.println("en hier??");
+            toPlayer1Data = new DataOutputStream(player1.getOutputStream());
+            toPlayer2Data = new DataOutputStream(player2.getOutputStream());
 
-            toPlayer1.write(1);
+            toPlayer1Data.write(1);
 
             while(true) {
-                System.out.println("en hier??");
+                System.out.println("The game is starting");
 
                 this.gameBoard = (Tile2[][]) fromPlayer1.readObject();
 
-                System.out.println("Hier kom ik");
-
                 if(this.window.isWon()){
-                    toPlayer1.write(3);
-                    toPlayer2.write(3);
+                    toPlayer1Data.write(3);
+                    toPlayer2Data.write(3);
                     sendMove(toPlayer2, this.gameBoard);
                     System.out.println("Player 1 has won");
                     break;
                 }else {
                     System.out.println("Player 2 turn");
-                    toPlayer2.write(5);
+                    toPlayer2Data.write(5);
                     sendMove(toPlayer2, this.gameBoard);
                 }
 
                 this.gameBoard = (Tile2[][]) fromPlayer2.readObject();
 
                 if(this.window.isWon()) {
-                    toPlayer1.write(4);
-                    toPlayer2.write(4);
+                    toPlayer1Data.write(4);
+                    toPlayer2Data.write(4);
                     sendMove(toPlayer1, this.gameBoard);
                     System.out.println("Player 2 has won");
                     break;
                 }else {
                     System.out.println("Player 1 turn");
-                    toPlayer1.write(5);
+                    toPlayer1Data.write(5);
                     sendMove(toPlayer1, this.gameBoard);
                 }
             }

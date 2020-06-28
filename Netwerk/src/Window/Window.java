@@ -308,8 +308,8 @@ public class Window extends Application {
             Socket socket = new Socket("localhost", 10000);
 
             toServer = new ObjectOutputStream(socket.getOutputStream());
-            fromServer = new ObjectInputStream(socket.getInputStream());
             playerID = new DataInputStream(socket.getInputStream());
+            fromServer = new ObjectInputStream(socket.getInputStream());
 
             new Thread( () -> {
                 try {
@@ -372,13 +372,10 @@ public class Window extends Application {
             continueToPlay = false;
             System.out.println("Player 2 has won");
         }else {
-            receiveMove();
+            Object board = fromServer.readObject();
+            this.gameBoard = (Tile2[][]) board;
             myTurn = true;
         }
-    }
-
-    private void receiveMove() throws IOException, ClassNotFoundException {
-        this.gameBoard = (Tile2[][]) fromServer.readObject();
     }
 }
 
