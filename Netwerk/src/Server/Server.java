@@ -1,6 +1,7 @@
 package Server;
 
 import Board.Tile.Tile2;
+import Window.Window;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -16,6 +17,7 @@ public class Server {
     private ArrayList<Client> clients;
     private ArrayList<Thread> threads;
     boolean running;
+    private Window window = new Window();
 
     public Server(String host, int port) {
         this.host = host;
@@ -42,16 +44,19 @@ public class Server {
             throw e;
         }
 
+        System.out.println("Awaiting connection");
+        Socket client = this.server.accept();
+        new Thread( () -> {
+            handeClientConnectionObject(client);
+            System.out.println("Client connected");
+        }).start();
 
-        while (this.running){
-            System.out.println("Awaiting connection");
-            Socket client = this.server.accept();
-            new Thread( () -> {
-                handeClientConnectionObject(client);
-                System.out.println("Client connected");
-            }).start();
-        }
-
+        System.out.println("Awaiting connection");
+        Socket client2 = this.server.accept();
+        new Thread( () -> {
+            handeClientConnectionObject(client2);
+            System.out.println("Client connected");
+        }).start();
 
         System.out.println("Server is started and listening on port " + this.port);
 
@@ -90,11 +95,11 @@ public class Server {
 
             boolean connected = true;
 
-            out.writeObject(new String("Connected"));
+            Tile2[][] gameBoard = window.getGameBoard();
 
             while (connected){
-                Tile2[][] gameBoard = (Tile2[][]) in.readObject();
                 out.writeObject(gameBoard);
+                gameBoard = (Tile2[][]) in.readObject();
 
             }
             client.close();

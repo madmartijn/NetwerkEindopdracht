@@ -43,11 +43,8 @@ public class Client implements Runnable{
             this.in = new ObjectInputStream(this.socket.getInputStream());
 
             //this.gameBoardIn = (Tile2[][]) this.in.readObject();
-
-            Scanner scanner = new Scanner(System.in);
+            
             while (this.connected){
-                System.out.println("Type your message: ");
-                String message = scanner.nextLine();
 
                 this.gameBoardOut = new Tile2[16][8];
                 this.out.writeObject(gameBoardOut);
