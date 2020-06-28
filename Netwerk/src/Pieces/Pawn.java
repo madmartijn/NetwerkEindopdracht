@@ -1,77 +1,126 @@
 package Pieces;
 
 import Board.*;
-import Board.Tile.*;
-import Board.Move.*;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pawn extends Piece{
 
     private static int[] CANDIDATE_MOVE_COORDINATES = {7, 8, 9, 16};
+    private boolean isBackLine;
+    private boolean firsMove;
 
-    public Pawn(int piecePosition, boolean isWhite) {
-        super(piecePosition, isWhite);
-    }
+    public Pawn(boolean isWhite, boolean isBackLine) {
+        super(isWhite);
+        this.isBackLine = isBackLine;
+        firsMove = true;
 
-    @Override
-    public List<Move> PossibleMoves(Board board) {
-
-        List<Move> legalMoves = new ArrayList<>();
-        int candidateDestinationCoordinate;
-        int pieceDirection;
-
-        for(int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES){
-
-            if(isWhite()) {
-                pieceDirection = -1;
-                candidateDestinationCoordinate = this.piecePosition - currentCandidateOffset;
+        if (!isWhite){
+            if (!isBackLine){
+                try {
+                    super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/pawnBlack.png")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }else {
-                pieceDirection = 1;
-                candidateDestinationCoordinate = this.piecePosition + currentCandidateOffset;
-            }
-
-            if(!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)){
-                continue;
-            }
-
-            if(currentCandidateOffset == 8 && !board.getTile(candidateDestinationCoordinate).isTileOccupied()){
-                legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
-            }else if(currentCandidateOffset == 16 && this.isFirstMove() &&
-                    (BoardUtils.SECOND_ROW[this.piecePosition] && !isWhite()) ||
-                    (BoardUtils.SEVENTH_ROW[this.piecePosition] && isWhite())){
-                int behindCandidateDestinationCoordinate = this.piecePosition + (pieceDirection * 8);
-
-                if(!board.getTile(behindCandidateDestinationCoordinate).isTileOccupied() &&
-                        !board.getTile(candidateDestinationCoordinate).isTileOccupied()){
-                    legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
+                try {
+                    super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/pawnBlackBackline.png")));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }else if(currentCandidateOffset == 7 &&
-                    !(BoardUtils.EIGHT_COLUMN[this.piecePosition] && isWhite() ||
-                    (BoardUtils.FIRST_COLUMN[this.piecePosition] && !isWhite()))){
-                if(board.getTile(candidateDestinationCoordinate).isTileOccupied()){
-                    Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
-                    boolean color = pieceOnCandidate.isWhite();
-
-                    if (color != isWhite()){
-                        legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
-                    }
+            }
+        }else {
+            if (!isBackLine){
+                try {
+                    super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/pawnWhite.png")));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }else if(currentCandidateOffset == 9 &&
-                    !(BoardUtils.FIRST_COLUMN[this.piecePosition] && isWhite() ||
-                            (BoardUtils.EIGHT_COLUMN[this.piecePosition] && !isWhite()))){
-
-                if(board.getTile(candidateDestinationCoordinate).isTileOccupied()) {
-                    Piece pieceOnCandidate = board.getTile(candidateDestinationCoordinate).getPiece();
-                    boolean color = pieceOnCandidate.isWhite();
-
-                    if (color != isWhite()) {
-                        legalMoves.add(new MajorMove(board, this, candidateDestinationCoordinate));
-                    }
+            }else {
+                try {
+                    super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/pawnWhiteBackline.png")));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }
+    }
+
+    @Override
+    public List<Tile2> PossibleMoves(Tile2[][] gameBoard, Tile2 currentTile) {
+        List<Tile2> legalMoves = new ArrayList<>();
+
+        int currentX = 0;
+        int currentY = 0;
+
+        //Gets the X and Y coordinates for the tile the user selected
+        for (int ix = 0; ix < gameBoard.length; ix++){
+            for (int iy = 0; iy < gameBoard[ix].length; iy++){
+                if (gameBoard[ix][iy] == currentTile){
+                    currentX = ix;
+                    currentY = iy;
+                }
+            }
+        }
+
+        int moveY = currentY;
+        if ((!isWhite() && !isBackLine || (isWhite() && isBackLine))){
+            if (moveY + 1 == gameBoard[currentX].length){
+                moveY = -1;
+            }
+
+            if (!gameBoard[currentX][moveY + 1].isOccupied()){
+                legalMoves.add(gameBoard[currentX][moveY + 1]);
+            }
+            if (currentX - 1 >= 0){
+                if (gameBoard[currentX - 1][moveY + 1].isOccupied() && gameBoard[currentX - 1][moveY + 1].getPiece().isWhite() != isWhite()){
+                    legalMoves.add(gameBoard[currentX - 1][moveY + 1]);
+                }
+            }
+            if (currentX + 1 <gameBoard.length){
+                if (gameBoard[currentX + 1][moveY + 1].isOccupied() && gameBoard[currentX + 1][moveY + 1].getPiece().isWhite() != isWhite()){
+                    legalMoves.add(gameBoard[currentX + 1][moveY + 1]);
+                }
+            }
+            if (firsMove){
+                if (moveY + 2 == gameBoard[currentX].length){
+                    moveY = -2;
+                }
+                if (!gameBoard[currentX][moveY + 2].isOccupied()){
+                    legalMoves.add(gameBoard[currentX][moveY + 2]);
+                    firsMove = false;
+                }
+            }
+        }else if ((isWhite() && !isBackLine) || (!isWhite() && isBackLine)){
+            if (moveY == 0){
+                moveY = gameBoard[currentX].length;
+            }
+
+            if (!gameBoard[currentX][moveY - 1].isOccupied()){
+                legalMoves.add(gameBoard[currentX][moveY - 1]);
+            }
+            if (currentX - 1 >= 0){
+                if (gameBoard[currentX - 1][moveY - 1].isOccupied() && gameBoard[currentX - 1][moveY - 1].getPiece().isWhite() != isWhite()){
+                    legalMoves.add(gameBoard[currentX - 1][moveY - 1]);
+                }
+            }
+            if (currentX + 1 <gameBoard.length){
+                if (gameBoard[currentX + 1][moveY - 1].isOccupied() && gameBoard[currentX + 1][moveY - 1].getPiece().isWhite() != isWhite()){
+                    legalMoves.add(gameBoard[currentX + 1][moveY - 1]);
+                }
+            }
+            if (firsMove){
+                if (!gameBoard[currentX][moveY - 2].isOccupied()){
+                    legalMoves.add(gameBoard[currentX][moveY - 2]);
+                    firsMove = false;
+                }
+            }
+        }
+
+
         return legalMoves;
     }
 }
