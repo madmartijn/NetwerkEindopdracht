@@ -40,8 +40,7 @@ public class Window extends Application {
     private List<Tile2> allowedMoves = new ArrayList<>();
 
     private int status;
-    private ObjectOutputStream toServer;
-    private ObjectInputStream fromServer;
+    private PlayerToServerStreams PlayerStreams;
     private DataInputStream playerID;
     private boolean won = false;
 
@@ -307,13 +306,11 @@ public class Window extends Application {
         try {
             Socket socket = new Socket("localhost", 10000);
 
-            toServer = new ObjectOutputStream(socket.getOutputStream());
-            playerID = new DataInputStream(socket.getInputStream());
-            fromServer = new ObjectInputStream(socket.getInputStream());
+            PlayerStreams = new PlayerToServerStreams(socket);
 
             new Thread( () -> {
                 try {
-                    int player = playerID.readInt();
+                    int player = PlayerStreams.getServerInput().readInt();
 
                     if(player == 1){
                         System.out.println("You are player 1");
@@ -359,7 +356,7 @@ public class Window extends Application {
     }
 
     private void sendMove () throws IOException {
-        toServer.writeObject(this.gameBoard);
+        PlayerStreams.getServerOutput().writeObject(this.gameBoard);
     }
 
     private void receiveInfoFromServer () throws IOException, ClassNotFoundException {
@@ -372,7 +369,7 @@ public class Window extends Application {
             continueToPlay = false;
             System.out.println("Player 2 has won");
         }else {
-            Object board = fromServer.readObject();
+            Object board = PlayerStreams.getServerInput().readObject();
             this.gameBoard = (Tile2[][]) board;
             myTurn = true;
         }
