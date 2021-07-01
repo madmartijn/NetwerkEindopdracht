@@ -311,6 +311,9 @@ public class Window extends Application {
             new Thread( () -> {
                 try {
                     int player = PlayerStreams.getServerInput().readInt();
+                    System.out.println("Recieved int: " + player);
+
+                    System.out.println("I dont get here?");
 
                     if(player == 1){
                         System.out.println("You are player 1");

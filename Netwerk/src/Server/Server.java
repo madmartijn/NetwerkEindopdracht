@@ -55,6 +55,7 @@ class HandleASession implements Runnable{
             ObjectStreams = new ServerToPlayerStreams(player1, player2);
 
             ObjectStreams.getPlayer1Output().writeInt(1);
+            System.out.println("Writing 1 to player 1");
 
             while(true) {
                 System.out.println("The game is starting");
