@@ -312,13 +312,14 @@ public class Window extends Application {
             new Thread( () -> {
                 try {
                     System.out.println("Do i get in the thread?");
-                    int player = PlayerStreams.getServerInput().readInt();
+                    int player = PlayerStreams.getDataInput().readInt();
                     System.out.println("Recieved int: " + player);
 
                     System.out.println("I dont get here?");
 
                     if(player == 1){
                         System.out.println("You are player 1");
+                        PlayerStreams.getServerOutput().writeObject(this.gameBoard);
 
                         if(userIsWhite){
                             myTurn = true;
