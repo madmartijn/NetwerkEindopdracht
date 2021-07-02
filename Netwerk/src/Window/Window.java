@@ -41,7 +41,6 @@ public class Window extends Application {
 
     private int status;
     private PlayerToServerStreams PlayerStreams;
-    private DataInputStream playerID;
     private boolean won = false;
 
     private boolean myTurn = false;
@@ -307,19 +306,14 @@ public class Window extends Application {
             Socket socket = new Socket("localhost", 10000);
 
             PlayerStreams = new PlayerToServerStreams(socket);
-            System.out.println("Do i get past this?");
 
             new Thread( () -> {
                 try {
-                    System.out.println("Do i get in the thread?");
                     int player = PlayerStreams.getDataInput().readInt();
-                    System.out.println("Recieved int: " + player);
-
-                    System.out.println("I dont get here?");
 
                     if(player == 1){
                         System.out.println("You are player 1");
-                        PlayerStreams.getServerOutput().writeObject(this.gameBoard);
+                        //PlayerStreams.getServerOutput().writeObject(this.gameBoard);
 
                         if(userIsWhite){
                             myTurn = true;
@@ -363,10 +357,11 @@ public class Window extends Application {
 
     private void sendMove () throws IOException {
         PlayerStreams.getServerOutput().writeObject(this.gameBoard);
+        System.out.println("Send a move");
     }
 
     private void receiveInfoFromServer () throws IOException, ClassNotFoundException {
-        int status = playerID.readInt();
+        int status = PlayerStreams.getDataInput().readInt();
 
         if(status == 3){
             continueToPlay = false;
