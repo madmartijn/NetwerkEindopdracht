@@ -49,4 +49,19 @@ public class ServerToPlayerStreams {
     public DataOutputStream getPlayer2Data() {
         return player2Data;
     }
+
+    public void closeStreams()
+    {
+        try{
+            this.player1Data.close();
+            this.Player1Input.close();
+            this.Player1Output.close();
+            this.player2Data.close();
+            this.Player2Input.close();
+            this.Player2Output.close();
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

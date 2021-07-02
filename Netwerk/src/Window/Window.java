@@ -366,9 +366,11 @@ public class Window extends Application {
         if(status == 3){
             continueToPlay = false;
             System.out.println("Player 1 has won");
+            PlayerStreams.closeStreams();
         }else if (status == 4){
             continueToPlay = false;
             System.out.println("Player 2 has won");
+            PlayerStreams.closeStreams();
         }else {
             Object board = PlayerStreams.getServerInput().readObject();
             this.gameBoard = (Tile2[][]) board;

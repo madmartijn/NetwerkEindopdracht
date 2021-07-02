@@ -68,6 +68,7 @@ class HandleASession implements Runnable{
                     ObjectStreams.getPlayer2Output().writeInt(3);
                     sendMove(ObjectStreams.getPlayer2Output(), this.gameBoard);
                     System.out.println("Player 1 has won");
+                    ObjectStreams.closeStreams();
                     break;
                 }else {
                     System.out.println("Player 2 turn");
@@ -82,6 +83,7 @@ class HandleASession implements Runnable{
                     ObjectStreams.getPlayer2Output().writeInt(4);
                     sendMove(ObjectStreams.getPlayer1Output(), this.gameBoard);
                     System.out.println("Player 2 has won");
+                    ObjectStreams.closeStreams();
                     break;
                 }else {
                     System.out.println("Player 1 turn");

@@ -34,4 +34,16 @@ public class PlayerToServerStreams {
     public DataInputStream getDataInput() {
         return dataInput;
     }
+
+    public void closeStreams()
+    {
+        try {
+            this.dataInput.close();
+            this.ServerInput.close();
+            this.ServerOutput.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
