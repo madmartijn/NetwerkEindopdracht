@@ -307,9 +307,11 @@ public class Window extends Application {
             Socket socket = new Socket("localhost", 10000);
 
             PlayerStreams = new PlayerToServerStreams(socket);
+            System.out.println("Do i get past this?");
 
             new Thread( () -> {
                 try {
+                    System.out.println("Do i get in the thread?");
                     int player = PlayerStreams.getServerInput().readInt();
                     System.out.println("Recieved int: " + player);
 
