@@ -40,9 +40,7 @@ public class Window extends Application {
     private List<Tile2> allowedMoves = new ArrayList<>();
 
     private int status;
-    private ObjectOutputStream toServer;
-    private ObjectInputStream fromServer;
-    private DataInputStream playerID;
+    private PlayerToServerStreams PlayerStreams;
     private boolean won = false;
 
     private boolean myTurn = false;
@@ -307,16 +305,15 @@ public class Window extends Application {
         try {
             Socket socket = new Socket("localhost", 10000);
 
-            toServer = new ObjectOutputStream(socket.getOutputStream());
-            playerID = new DataInputStream(socket.getInputStream());
-            fromServer = new ObjectInputStream(socket.getInputStream());
+            PlayerStreams = new PlayerToServerStreams(socket);
 
             new Thread( () -> {
                 try {
-                    int player = playerID.readInt();
+                    int player = PlayerStreams.getDataInput().readInt();
 
                     if(player == 1){
                         System.out.println("You are player 1");
+                        //PlayerStreams.getServerOutput().writeObject(this.gameBoard);
 
                         if(userIsWhite){
                             myTurn = true;
@@ -359,11 +356,12 @@ public class Window extends Application {
     }
 
     private void sendMove () throws IOException {
-        toServer.writeObject(this.gameBoard);
+        PlayerStreams.getServerOutput().writeObject(this.gameBoard);
+        System.out.println("Send a move");
     }
 
     private void receiveInfoFromServer () throws IOException, ClassNotFoundException {
-        int status = playerID.readInt();
+        int status = PlayerStreams.getDataInput().readInt();
 
         if(status == 3){
             continueToPlay = false;
@@ -372,7 +370,7 @@ public class Window extends Application {
             continueToPlay = false;
             System.out.println("Player 2 has won");
         }else {
-            Object board = fromServer.readObject();
+            Object board = PlayerStreams.getServerInput().readObject();
             this.gameBoard = (Tile2[][]) board;
             myTurn = true;
         }
