@@ -248,6 +248,7 @@ public class Window extends Application {
                                 this.grabbedPiece.removePiece();
                                 this.holdingPiece = false;
                                 this.status = 2;
+                                waiting = false;
                             }else if (new Rectangle2D(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight()).contains(event.getX(), event.getY()) && tile.isOccupied()  && tile.getPiece().isWhite() != grabbedPiece.getPiece().isWhite() && allowedMoves.contains(tile)){     //Target tile is occupied, remove the existing piece and place selected piece.        //TODO add  && allowedMoves.contains(tile)
                                 System.out.println("MURDER");
 
@@ -263,15 +264,17 @@ public class Window extends Application {
                                 this.grabbedPiece.removePiece();
                                 this.holdingPiece = false;
                                 this.status = 3;
+                                waiting = false;
                             }else {
                                 this.holdingPiece = false;
                                 this.status = 4;
+                                waiting = false;
                             }
                         }
                     }
                 }
             }
-            System.out.println(this.status);
+            System.out.println("Status: " + this.status);
         }else {
             if (new Rectangle2D(5,5,85,25).contains(event.getX(),event.getY())){
                 userIsWhite = true;
@@ -303,7 +306,7 @@ public class Window extends Application {
 
     public void connectToServer () {
         try {
-            Socket socket = new Socket("localhost", 10000);
+            Socket socket = new Socket("localhost", 10101);
 
             PlayerStreams = new PlayerToServerStreams(socket);
 
@@ -326,11 +329,14 @@ public class Window extends Application {
                         }
                     }
 
-                    while (continueToPlay) {
+                    sendMove();
+
+                    while (true) {
+                        System.out.println("loopin");
                         if(player == 1){
+                            receiveInfoFromServer();
                             waitForPlayerAction();
                             sendMove();
-                            receiveInfoFromServer();
                         }else if (player == 2) {
                             receiveInfoFromServer();
                             waitForPlayerAction();
@@ -349,6 +355,7 @@ public class Window extends Application {
 
     private void waitForPlayerAction() throws InterruptedException {
         while (waiting) {
+            System.out.println("wait loopin");
             Thread.sleep(100);
         }
 
@@ -357,12 +364,14 @@ public class Window extends Application {
 
     private void sendMove () throws IOException {
         PlayerStreams.getServerOutput().writeObject(this.gameBoard);
+        PlayerStreams.getServerOutput().flush();
         System.out.println("Send a move");
     }
 
     private void receiveInfoFromServer () throws IOException, ClassNotFoundException {
         int status = PlayerStreams.getDataInput().readInt();
 
+        System.out.println("server status" + status);
         if(status == 3){
             continueToPlay = false;
             System.out.println("Player 1 has won");
@@ -372,6 +381,7 @@ public class Window extends Application {
             System.out.println("Player 2 has won");
             PlayerStreams.closeStreams();
         }else {
+            PlayerStreams.getServerInput().defaultReadObject();
             Object board = PlayerStreams.getServerInput().readObject();
             this.gameBoard = (Tile2[][]) board;
             myTurn = true;

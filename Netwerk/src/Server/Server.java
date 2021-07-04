@@ -12,7 +12,7 @@ public class Server {
     public void Start () {
         new Thread(() -> {
             try{
-                ServerSocket serverSocket = new ServerSocket(10000);
+                ServerSocket serverSocket = new ServerSocket(10101);
 
                 while (true) {
                     Socket player1 = serverSocket.accept();

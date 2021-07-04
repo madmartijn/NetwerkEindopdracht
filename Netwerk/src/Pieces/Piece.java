@@ -5,15 +5,16 @@ import Board.Tile2;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Piece {
+public abstract class Piece implements Serializable {
 
 //    protected final int piecePosition;
     private Tile2 piecePosition;
     private boolean isWhite;
     private boolean isFirstMove;
-    private BufferedImage image;
+    private transient BufferedImage image;
     private boolean isKing;
 
     public Piece( boolean isWhite) {

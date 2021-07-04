@@ -1,0 +1,12 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "d:\\Programs\\JDK\\lib\\ant-javafx.jar",
+        "d:\\Programs\\JDK\\lib\\dt.jar",
+        "d:\\Programs\\JDK\\lib\\javafx-mx.jar",
+        "d:\\Programs\\JDK\\lib\\jconsole.jar",
+        "d:\\Programs\\JDK\\lib\\packager.jar",
+        "d:\\Programs\\JDK\\lib\\sa-jdi.jar",
+        "d:\\Programs\\JDK\\lib\\tools.jar"
+    ]
+}

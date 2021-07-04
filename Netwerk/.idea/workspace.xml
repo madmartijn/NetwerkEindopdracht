@@ -3,13 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="6172401c-5c9c-4e7f-a128-7520f9780036" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NetwerkPortalChess.iml" beforeDir="false" afterPath="$PROJECT_DIR$/NetwerkPortalChess.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/NetwerkPortalChess/META-INF/NetwerkPortalChess.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Piece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/ServerToPlayerStreams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ServerToPlayerStreams.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Window/PlayerToServerStreams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/PlayerToServerStreams.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Window/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Window/Window.java" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,69 +16,6 @@
   </component>
   <component name="FavoritesManager">
     <favorites_list name="NetwerkPortalChess" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Window/PlayerToServerStreams.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="539">
-              <caret line="43" column="33" lean-forward="true" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#918#919#0" expanded="true" />
-                <element signature="e#950#951#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="70" column="49" selection-start-line="70" selection-start-column="49" selection-end-line="70" selection-end-column="49" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Server_.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Server/ServerToPlayerStreams.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="55" column="37" lean-forward="true" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="37" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Window/Window.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="370" column="35" lean-forward="true" selection-start-line="370" selection-start-column="35" selection-end-line="370" selection-end-column="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -134,6 +70,7 @@
     <option name="width" value="1940" />
     <option name="height" value="1050" />
   </component>
+  <component name="ProjectId" id="1unzIOiKrOh0JLZy0rAP4p9IsYD" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -191,13 +128,17 @@
       <pane id="Scope" />
     </panes>
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1625223218087" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../Java libraries/fxgraphics2d-1.5" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -211,18 +152,6 @@
       <recent name="C:\Periode 4\NetwerkEindopdracht\Netwerk\lib" />
       <recent name="D:\Documents\School\TI 1.4\Netwerk programmeren\Eindopdracht\Netwerk\lib" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Application.NetwerkPortalChess">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -269,12 +198,13 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Server_" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Client_" />
         <item itemvalue="Application.Client" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -339,6 +269,9 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/NetwerkPortalChess$NetwerkPortalChess.ic" NAME="NetwerkPortalChess Coverage Results" MODIFIED="1625402568952" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Pieces/Type.java" />
     <entry file="file://$PROJECT_DIR$/src/Board/Tile/OccupiedTile.java" />
@@ -346,7 +279,7 @@
     <entry file="file://$PROJECT_DIR$/src/Board/Move/MajorMove.java" />
     <entry file="file://$PROJECT_DIR$/src/Board/Move/Move.java" />
     <entry file="file://$PROJECT_DIR$/src/Board/Tile/Tile.java" />
-    <entry file="jar://D:/Programs/JDK/src.zip!/java/util/List.java" />
+    <entry file="jar://$PROJECT_DIR$/../../../../../../../Programs/JDK/src.zip!/java/util/List.java" />
     <entry file="file://$PROJECT_DIR$/src/Server/HandleASession.java" />
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
