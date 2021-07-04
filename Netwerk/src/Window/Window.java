@@ -381,9 +381,10 @@ public class Window extends Application {
             System.out.println("Player 2 has won");
             PlayerStreams.closeStreams();
         }else {
-            PlayerStreams.getServerInput().defaultReadObject();
-            Object board = PlayerStreams.getServerInput().readObject();
-            this.gameBoard = (Tile2[][]) board;
+            //PlayerStreams.getServerInput().defaultReadObject();
+            //Object board = PlayerStreams.getServerInput().readObject();
+            this.gameBoard = (Tile2[][]) PlayerStreams.getServerInput().readObject();
+            //this.gameBoard = (Tile2[][]) board;
             myTurn = true;
         }
     }

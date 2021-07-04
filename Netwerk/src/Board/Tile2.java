@@ -5,6 +5,8 @@ import com.sun.javafx.geom.Point2D;
 import com.sun.javafx.geom.Rectangle;
 import javafx.geometry.Rectangle2D;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 public class Tile2 implements Serializable {
@@ -88,5 +90,9 @@ public class Tile2 implements Serializable {
         this.occupied = false;
         this.piece = null;
         System.out.println("piece removed");
+    }
+
+    private void readObject(ObjectInputStream inputStream) throws IOException, ClassNotFoundException {
+        inputStream.defaultReadObject();
     }
 }

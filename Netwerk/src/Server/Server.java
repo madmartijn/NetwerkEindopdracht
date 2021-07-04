@@ -64,30 +64,30 @@ class HandleASession implements Runnable{
                 System.out.println("I got the gameBoard: " + this.gameBoard);
 
                 if(this.window.isWon()){
-                    ObjectStreams.getPlayer1Output().writeInt(3);
-                    ObjectStreams.getPlayer2Output().writeInt(3);
+                    ObjectStreams.getPlayer1Data().writeInt(3);
+                    ObjectStreams.getPlayer2Data().writeInt(3);
                     sendMove(ObjectStreams.getPlayer2Output(), this.gameBoard);
                     System.out.println("Player 1 has won");
                     ObjectStreams.closeStreams();
                     break;
                 }else {
                     System.out.println("Player 2 turn");
-                    ObjectStreams.getPlayer2Output().writeInt(5);
+                    ObjectStreams.getPlayer2Data().writeInt(5);
                     sendMove(ObjectStreams.getPlayer2Output(), this.gameBoard);
                 }
 
                 this.gameBoard = (Tile2[][]) ObjectStreams.getPlayer2Input().readObject();
 
                 if(this.window.isWon()) {
-                    ObjectStreams.getPlayer1Output().writeInt(4);
-                    ObjectStreams.getPlayer2Output().writeInt(4);
+                    ObjectStreams.getPlayer1Data().writeInt(4);
+                    ObjectStreams.getPlayer2Data().writeInt(4);
                     sendMove(ObjectStreams.getPlayer1Output(), this.gameBoard);
                     System.out.println("Player 2 has won");
                     ObjectStreams.closeStreams();
                     break;
                 }else {
                     System.out.println("Player 1 turn");
-                    ObjectStreams.getPlayer1Output().writeInt(5);
+                    ObjectStreams.getPlayer1Data().writeInt(5);
                     sendMove(ObjectStreams.getPlayer1Output(), this.gameBoard);
                 }
             }
@@ -98,5 +98,6 @@ class HandleASession implements Runnable{
 
     private void sendMove(ObjectOutputStream toPlayer, Tile2[][] gameBoard) throws IOException {
         toPlayer.writeObject(gameBoard);
+        toPlayer.flush();
     }
 }
