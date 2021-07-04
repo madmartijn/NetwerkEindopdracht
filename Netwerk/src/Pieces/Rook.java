@@ -16,17 +16,9 @@ public class Rook extends Piece{
         super(isWhite);
 
         if (!isWhite){
-            try {
-                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/rookBlack.png")));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            super.setImage("/rookBlack.png");
         }else {
-            try {
-                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/rookWhite.png")));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            super.setImage("/rookWhite.png");
         }
 
     }

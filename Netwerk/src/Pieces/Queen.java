@@ -15,17 +15,9 @@ public class Queen extends Piece{
         super(isWhite);
 
         if (!isWhite){
-            try {
-                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/queenBlack.png")));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            super.setImage("/queenBlack.png");
         }else {
-            try {
-                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/queenWhite.png")));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            super.setImage("/queenWhite.png");
         }
     }
 

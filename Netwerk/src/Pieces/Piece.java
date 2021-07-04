@@ -14,7 +14,7 @@ public abstract class Piece implements Serializable {
     private Tile2 piecePosition;
     private boolean isWhite;
     private boolean isFirstMove;
-    private transient BufferedImage image;
+    private String imageURL;
     private boolean isKing;
 
     public Piece( boolean isWhite) {
@@ -39,12 +39,12 @@ public abstract class Piece implements Serializable {
 
     public abstract List<Tile2> PossibleMoves(Tile2[][] gameBoard, Tile2 currentTile);
 
-    public BufferedImage getImage() {
-        return image;
+    public BufferedImage getImage() throws IOException {
+        return ImageIO.read(this.getClass().getResourceAsStream(imageURL));
     }
 
-    public void setImage(BufferedImage image) {
-        this.image = image;
+    public void setImage(String image) {
+        this.imageURL = image;
     }
 
     public boolean isKing() {
