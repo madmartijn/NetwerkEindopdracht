@@ -20,31 +20,15 @@ public class Pawn extends Piece{
 
         if (!isWhite){
             if (!isBackLine){
-                try {
-                    super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/pawnBlack.png")));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                super.setImage("/pawnBlack.png");
             }else {
-                try {
-                    super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/pawnBlackBackline.png")));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                super.setImage("/pawnBlackBackline.png");
             }
         }else {
             if (!isBackLine){
-                try {
-                    super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/pawnWhite.png")));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                super.setImage("/pawnWhite.png");
             }else {
-                try {
-                    super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/pawnWhiteBackline.png")));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                super.setImage("/pawnWhiteBackline.png");
             }
         }
     }
