@@ -111,10 +111,15 @@ public class Window extends Application {
         for (Tile2[] tile : this.gameBoard){
             for (Tile2 tile2 : tile){
                 if (tile2.isOccupied()){
-                    graphics.drawImage(tile2.getPiece().getImage(), pieceTransform(tile2), null);
+                    try {
+                        graphics.drawImage(tile2.getPiece().getImage(), pieceTransform(tile2), null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
+
 
         //UI elements
         //White selector
