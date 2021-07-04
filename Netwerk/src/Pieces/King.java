@@ -17,17 +17,9 @@ public class King extends Piece{
         isKing = true;
 
         if (!isWhite){
-            try {
-                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/kingBlack.png")));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            super.setImage("/kingBlack.png");
         }else {
-            try {
-                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/kingWhite.png")));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            super.setImage("/kingWhite.png");
         }
     }
 
