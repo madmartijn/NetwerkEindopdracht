@@ -15,17 +15,9 @@ public class Bishop extends Piece{
         super(isWhite);
 
         if (!isWhite){
-            try {
-                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/bishopBlack.png")));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            super.setImage("/bishopBlack.png");
         }else {
-            try {
-                super.setImage(ImageIO.read(this.getClass().getResourceAsStream("/bishopWhite.png")));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            super.setImage("/bishopWhite.png");
         }
     }
 
